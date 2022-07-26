@@ -11,10 +11,13 @@ exports.up = function(knex) {
         table.integer("user_id").unsigned();
         table.foreign("user_id").references("users.id")
 
-        table.integer("climb_id").unsigned();
-        table.foreign("climb_id").references("climb.id"); 
+        table.date("date");
+        table.time("start_time");
+        table.time("end_time");
 
-        table.timestamps(false, true);
+        table.string("description");
+        table.boolean("is_private");
+        
 
     })
 };

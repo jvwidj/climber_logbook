@@ -11,36 +11,50 @@ class AppRouter {
     router() {
         let router = this.express.Router();
 
-        router.get("/card", this.getCard.bind(this));
-        router.post("/card", this.postCard.bind(this))
-        router.put("/card/:id", this.updateCard.bind(this));
-        router.delete("/card/:id", this.deleteCard.bind(this))
+        router.get("/sessions", this.getAllSession.bind(this));
+        router.get("/session/:id", this.getSession.bind(this))
+        router.post("/sessions", this.postSession.bind(this))
+        router.put("/session/:id", this.updateSession.bind(this));
+        router.delete("/session/:id", this.deleteSession.bind(this))
 
 
         return router;
     }
 
-    //getCard
-    getCard(req, res) {
-        console.log('Get all Card')
-        return this.knex("climbing_log")
+    //get all sesssions
+    getAllSession(req, res) {
+        console.log('Get all sessions')
+        return this.knex("session")
             .select("*")
             .then((data) => {
                 res.json(data)
             })
     }
 
-    //post card
-    postCard(req, res) {
-        return this.knex("climbing_log")
+    //get a session
+    getSession(req, res){
+        return this.knex("session")
+            .where({
+                id:req.params.id
+            })
+            .then((data) =>{
+                res.json(data)
+            })
+    }
+
+    //post new session
+    postSession(req, res) {
+        return this.knex("session")
             .insert({
                 user_id: req.body.user_id,
-                attempts: req.body.attempts,
-                notes: req.body.notes,
+                date: req.body.date,
+                start_time: req.body.start_time,
+                description: req.body.description,
+                is_private: req.body.is_private,
             })
             .then(() => {
-                console.log("added new log")
-                this.knex("climbing_log")
+                console.log("added new session")
+                this.knex("session")
                     .then((data) => {
                         res.json(data)
                     })
@@ -48,32 +62,35 @@ class AppRouter {
 
     }
 
-    //update log
-    updateCard(req, res){
-        this.knex("climbing_log")
+    //update a session
+    updateSession(req, res){
+        this.knex("session")
         .where({
             id:req.params.id
         })
         .update({
-            attempts: req.body.attempts,
-            notes: req.body.notes
+            date: req.body.date,
+            start_time: req.body.start_time,
+            end_time: req.body.end_time,
+            description: req.body.description,
+            is_private: req.body.is_private,
         })
         .then((data) => {
-            console.log("log updated")
+            console.log("session updated")
             res.json(data)
         })
     }
 
-    //delete log
-    deleteCard(req, res) {
-        this.knex("climbing_log")
+    //delete a session
+    deleteSession(req, res) {
+        this.knex("session")
         .where({
             id:req.params.id
         })
         .del()
         .then(() => {
-            console.log("item deleted")
-            this.knex("climbing_log")
+            console.log("session deleted")
+            this.knex("session")
             .then((data) => {
                 res.json(data)
             })

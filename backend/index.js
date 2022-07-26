@@ -25,7 +25,7 @@ const DbRouter = require("./Router/DbRouter");
 const AuthRouter = require("./Router/AuthRouter")
 
 /** *********************** Configure Router **************************** */
-//app.use("/api", new AppRouter(express, knex, jwt).router())
+app.use("/api", new AppRouter(express, knex, jwt).router())
 app.use("/db", new DbRouter(express, knex, jwt).router());
 app.use("/auth", new AuthRouter(express, knex, jwt).router());
 
