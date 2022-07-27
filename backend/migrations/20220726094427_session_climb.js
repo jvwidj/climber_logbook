@@ -11,6 +11,9 @@ exports.up = function(knex) {
 
         table.integer("climb_id").unsigned()
         table.foreign("climb_id").references("climb.id")
+
+        table.boolean("completed")
+        table.integer("attempt")
     })
 };
 
