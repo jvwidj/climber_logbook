@@ -72,13 +72,12 @@ class AppRouter {
                 description: req.body.description,
                 is_private: req.body.is_private,
             })
-            .then(() => {
+            .returning("*")
+            .then((data) => {
                 console.log("added new session")
-                this.knex("session")
-                    .then((data) => {
-                        res.json(data)
-                    })
-            })
+                res.json(data[0])
+            }
+            )
 
     }
 

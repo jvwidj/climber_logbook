@@ -2,10 +2,11 @@
 require("dotenv").config();
 
 class AuthRouter{
-    constructor(express, knex, jwt) {
+    constructor(express, knex, jwt, decode) {
         this.express = express;
         this.knex = knex;
         this.jwt = jwt;
+        this.decode = decode;
     }
 
 /** ************** bind routes ***********************/ 
@@ -35,7 +36,10 @@ router(){
 
 //get all users
 getAuth(req, res) {
+    let user = this.decode(req)
+
     return this.knex("users")
+        .where("id", user.id)
         .then((data) => {
             res.json(data);
         })
