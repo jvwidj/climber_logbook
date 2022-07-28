@@ -6,7 +6,7 @@ import { Container } from 'react-bootstrap';
 const ListSession = () => {
     const {sessionList} = useSelector((store) => store.session);
     //const dispatch = useDispatch(); //use dispatch for edit, delete, and add notes
-    console.log(sessionList)
+    //console.log(sessionList)
 
     //No item in the session list
     if(!sessionList) {
@@ -25,7 +25,7 @@ const ListSession = () => {
         <table className="table mt-3">
             <thead>
             <tr>
-                <th scope="col">Date</th>
+                {/* <th scope="col">Date</th> */}
                 <th scope="col">Location</th>
                 {/* <th scope="col">Description</th> */}
                 <th scope="col"># of CLimb</th>
@@ -36,7 +36,7 @@ const ListSession = () => {
             <tbody>
             {sessionList.map(session => (
                 <tr key={session.id}>
-                <td>{session.date.slice(0,10)}</td>
+                {/* <td>{session.date.slice(0,10)}</td> */}
                 <td>Location</td>
                 {/* <td>{session.description}</td> */}
                 <td>#of Climb</td>

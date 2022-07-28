@@ -33,6 +33,25 @@ export const getSessionList = createAsyncThunk(
     }
 )
 
+const token = localStorage.getItem("TOKEN")
+//Post new session
+export const postSession = createAsyncThunk(
+    'session/postSession',
+    async (user_id) => {
+        //console.log(token)
+        try {
+            const res = await axios.post(
+                    api,
+                    {user_id:`${user_id}`},
+                    {headers: {Authorization: `Bearer ${token}`}})
+            console.log(res.data)
+            return res.data
+        } catch (err) {
+            console.log(err)
+        }
+    }
+)
+
 /*************************** Export Slice & Reducers *********************************/
 // Create session slice
 export const sessionSlice = createSlice({
@@ -51,6 +70,10 @@ export const sessionSlice = createSlice({
         },
         [getSessionList.rejected]: (state) => {
             state.isLoading = false
+        },
+        [postSession.fulfilled]: (state, action) => {
+            state.isLoading = false
+            state.sessionList = action.payload
         },
 
     }

@@ -1,21 +1,22 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector} from 'react-redux'
-import { useNavigate } from 'react-router-dom'
 import AddSession from '../Components/AddSession'
 import ListSession from '../Components/ListSession'
 import PerformanceDash from '../Components/PerformanceDash'
-import { logoutThunk } from '../Redux/authSlice'
+import { getUserData, logoutThunk } from '../Redux/authSlice'
 import { getSessionList } from '../Redux/SessionSlice'
-
 
 const Dashboard = () => {
 
   const { isLoading } = useSelector((store) => store.session);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getSessionList())
+  }, [dispatch])
+
+  useEffect(() => {
+    dispatch(getUserData())
   }, [dispatch])
 
   if(isLoading){
@@ -33,9 +34,8 @@ const Dashboard = () => {
     
     <button onClick={() => {dispatch(logoutThunk())}}>Logout</button>
 
-    <button onClick={() => navigate("/location")}>Add Session</button>
 
-    {/* <AddSession /> */}
+    <AddSession />
 
     <div>
     <ListSession />

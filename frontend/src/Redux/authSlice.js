@@ -1,23 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-
-const authSlice = createSlice({
-    name: "Auth", 
-    initialState: {
-        isAuthenticated: false || localStorage.getItem("TOKEN") != null,
-    },
-    reducers: {
-        login: (state) => {
-            state.isAuthenticated = true;
-        },
-        logout: (state) => {
-            state.isAuthenticated = false;
-        },
-    },
-})
-
-export const { login, logout } = authSlice.actions;
-export default authSlice.reducer;
 
 //SIGNUP THUNK
 export const signupThunk = 
@@ -54,4 +36,45 @@ export const logoutThunk = () => (dispatch) => {
     localStorage.removeItem("TOKEN");
     dispatch(logout());
 }
+
+//Get user THUNK
+export const getUserData = createAsyncThunk(
+    'userData',
+    async() =>{
+        const token = localStorage.getItem("TOKEN")
+        try {
+            const res = await axios.get(
+                `${process.env.REACT_APP_BACKEND}/auth/users`,
+                {headers: {Authorization: `Bearer ${token}`}})
+            return res.data
+        } catch (error) {
+            console.log("error", error)
+        }
+    }
+)
+
+const authSlice = createSlice({
+    name: "Auth", 
+    initialState: {
+        isAuthenticated: false || localStorage.getItem("TOKEN") != null,
+        userData: []
+    },
+    reducers: {
+        login: (state) => {
+            state.isAuthenticated = true;
+        },
+        logout: (state) => {
+            state.isAuthenticated = false;
+        }
+    },
+    extraReducers: {
+        [getUserData.fulfilled]: (state, action) => {
+            state.userData = action.payload
+        },
+    }
+})
+
+export const { login, logout } = authSlice.actions;
+export default authSlice.reducer;
+
 
