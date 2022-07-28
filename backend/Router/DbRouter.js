@@ -1,10 +1,11 @@
 require("dotenv").config({path:"../.env"})
 
 class DbRouter {
-    constructor(express, knex, jwt) {
+    constructor(express, knex, jwt, decode) {
         this.express = express;
         this.knex = knex;
         this.jwt = jwt;
+        this.decode = decode;
     }
 
     /** ************** Routes - bind routes ***********************/
@@ -40,11 +41,14 @@ class DbRouter {
         return router;
     }
 
+
+
     /** ************** Functions - Location ***********************/
 
     // Get all locations
     getAllLocations(req, res) {
         console.log("Get all locations")
+
         return this.knex("location")
             .then((data) =>{
                 res.json(data)

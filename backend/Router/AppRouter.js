@@ -26,13 +26,26 @@ class AppRouter {
 
         return router;
     }
+/** ************** Verify - Decode JWT ***********************/
+
+    decode(req){
+        let token = req.headers.authorization;
+
+        token = token.replace("Bearer ", ""); // "Bearer " -> Bearer + space
+        return this.jwt.verify(token, process.env.JWT_SECRET)
+
+    }
+    
 /** ************** Functions - Sessions ***********************/
 
     //get all sesssions
     getAllSession(req, res) {
         console.log('Get all sessions')
+        let user = this.decode(req)
+
         return this.knex("session")
             .select("*")
+            .where("user_id", user.id)
             .then((data) => {
                 res.json(data)
             })
