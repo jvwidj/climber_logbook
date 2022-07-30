@@ -3,6 +3,7 @@ import axios from "axios"
 
 //URL Data
 const api = `${process.env.REACT_APP_BACKEND}/api/sessions`
+const api2 = `${process.env.REACT_APP_BACKEND}/api/session`
 
 //Initial State
 const initialState = {
@@ -34,6 +35,7 @@ export const getSessionList = createAsyncThunk(
 )
 
 const token = localStorage.getItem("TOKEN")
+
 //Post new session
 export const postSession = createAsyncThunk(
     'session/postSession',
@@ -48,6 +50,23 @@ export const postSession = createAsyncThunk(
             return res.data
         } catch (err) {
             console.log(err)
+        }
+    }
+)
+
+//Delete session
+export const deleteSession = createAsyncThunk(
+    'session/deleteSession',
+    async (id) => {
+        try {
+            const res = await axios.delete(
+                `${api2}/${id}`,
+                {headers: {Authentication: `Bearer ${token}`}}
+            )
+            console.log("session deleted", id)
+            //return res.data
+        } catch (error) {
+            console.log(error)
         }
     }
 )
@@ -74,6 +93,10 @@ export const sessionSlice = createSlice({
         [postSession.fulfilled]: (state, action) => {
             state.isLoading = false
             state.sessionList = action.payload
+        },
+        [deleteSession.fulfilled]: (state, action) => {
+            state.isLoading = false
+            
         },
 
     }

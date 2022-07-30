@@ -1,17 +1,49 @@
 import React from 'react'
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 
 import { Container } from 'react-bootstrap';
+import { deleteSession, getSessionList } from '../Redux/SessionSlice';
+import { deleteBySession } from '../Redux/SessionClimbSlice';
+import { useNavigate } from 'react-router-dom';
 
 const ListSession = () => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const {sessionList} = useSelector((store) => store.session);
     //const dispatch = useDispatch(); //use dispatch for edit, delete, and add notes
     //console.log(sessionList)
+    
+    //Delete button
+    async function deleteSessionButton(id) {
+        try {
+            //TODO: need to dispatch(deleteSessionClimb) to avoid error
+            dispatch(deleteBySession(id))
+            .then(() => {
+                dispatch(deleteSession(id))
+                .then(() => {
+                    dispatch(getSessionList())
+                })
+            })
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    //Detail Button
+    async function detailButton(id) {
+        try {
+            navigate("/session_detail")
+        } catch (error) {
+            
+        }
+    }
+
 
     //No item in the session list
     if(!sessionList) {
         return (
-            <h4 classname='text-center my-5'>Session is empty</h4>
+            <h4 className='text-center my-5'>Session is empty</h4>
         )
     }
 
@@ -26,7 +58,7 @@ const ListSession = () => {
             <thead>
             <tr>
                 {/* <th scope="col">Date</th> */}
-                <th scope="col">Location</th>
+                <th scope="col">id</th>
                 {/* <th scope="col">Description</th> */}
                 <th scope="col"># of CLimb</th>
                 <th scope="col">See Detail</th>
@@ -37,18 +69,26 @@ const ListSession = () => {
             {sessionList.map(session => (
                 <tr key={session.id}>
                 {/* <td>{session.date.slice(0,10)}</td> */}
-                <td>Location</td>
+                <td>{session.id}</td>
                 {/* <td>{session.description}</td> */}
                 <td>#of Climb</td>
                 <td>
-                    <button>See Detail</button>
+                    <button className='btn btn-secondary btn-sm'
+                        onClick={() => detailButton(session.id)}
+                    >
+                    Detail
+                    </button>
                 </td>
                 <td>
                     {/* <button className='btn btn-danger'
                     onClick={() => deleteTodo(todo.id)}>
                     Delete
                     </button> */}
-                    <button>Delete</button>
+                    <button className='btn btn-danger btn-sm'
+                        onClick={() => deleteSessionButton(session.id)}
+                    >
+                    Delete
+                    </button>
                     
                     </td>
             </tr>

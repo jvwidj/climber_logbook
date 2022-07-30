@@ -15,6 +15,7 @@ const SessionCard = () => {
     const navigate = useNavigate()
     const { selectedLocation } = useSelector((store) => store.selectedLocation)
     const [startDate, setStartDate] = useState(new Date())
+    //console.log(selectedLocation)
 
   return (
     <Container>
@@ -29,7 +30,7 @@ const SessionCard = () => {
             </Row>
 
             <Row className='my-2'>
-            Climbing location: {selectedLocation}
+            Climbing location: {selectedLocation.location_name}
             <br />
             Number of climb: 
             </Row>

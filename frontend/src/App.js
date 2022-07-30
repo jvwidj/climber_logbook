@@ -13,7 +13,7 @@ import Session from "./Pages/Session";
 import NavbarFooter from "./Components/NavbarFooter";
 import AddClimb from "./Pages/AddClimb";
 import LocRoute from "./Pages/LocRoute";
-
+import SessionDetailPage from "./Pages/SessionDetailPage";
 //import Landing from "./Pages/Landing"
 
 
@@ -33,6 +33,7 @@ function App() {
         <Route path="/location" element={<Loc />} />
         <Route path="/location/route" element={<LocRoute />} />
         <Route path="/session" element={<Session />} />
+        <Route path="/session_detail" element={<SessionDetailPage />} />
         <Route path="/session/climb" element={<AddClimb />} />
 
         <Route 

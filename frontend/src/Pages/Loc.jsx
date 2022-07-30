@@ -5,6 +5,7 @@ import ListLocation from '../Components/ListLocation'
 import SearchBar from '../Components/SearchBar'
 import { getLocationList } from '../Redux/LocationSlice'
 import { useNavigate } from 'react-router-dom'
+import { deleteSession, getSessionList } from '../Redux/SessionSlice'
 
 import { Button } from "react-bootstrap"
 
@@ -31,9 +32,16 @@ const Loc = () => {
   return (
     <div>
     <h2>Location</h2>
-    <Button onClick={() => {
-      console.log(sessionList)
-      navigate("/dashboard")}}>back</Button>
+    <Button onClick={() =>  {
+      console.log(sessionList.id)
+      dispatch(deleteSession(sessionList.id))
+      .then(() => {
+        dispatch(getSessionList()) 
+      })
+      .then(() => {
+        navigate("/dashboard")
+      })
+      }}>back</Button>
     <SearchBar />
 
     <ListLocation />

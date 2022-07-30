@@ -11,7 +11,9 @@ class AppRouter {
     router() {
         let router = this.express.Router();
 
-        router.get("/sessions", this.getAllSession.bind(this));
+        router.get("/allsession", this.getAllSession.bind(this));
+
+        router.get("/sessions", this.getUserSession.bind(this));
         router.get("/session/:id", this.getSession.bind(this))
         router.post("/sessions", this.postSession.bind(this))
         router.put("/session/:id", this.updateSession.bind(this));
@@ -22,6 +24,8 @@ class AppRouter {
         router.post("/climb", this.postSessionClimb.bind(this))
         router.put("/climb/:id", this.updateSessionClimb.bind(this));
         router.delete("/climb/:id", this.deleteSessionClimb.bind(this))
+        router.delete("/climb/session/:id", this.deleteBySession.bind(this))
+        router.get("/climb/session/:id", this.getBySession.bind(this))
 
 
         return router;
@@ -38,10 +42,20 @@ class AppRouter {
     
 /** ************** Functions - Sessions ***********************/
 
-    //get all sesssions
+    //get all sessions by everyone
     getAllSession(req, res) {
         console.log('Get all sessions')
+        return this.knex("session")
+            .select("*")
+            .then((data) => {
+                res.json(data)
+            })
+    }
+
+    //get all sesssions by logged in user
+    getUserSession(req, res) {
         let user = this.decode(req)
+        console.log('Get all sessions by logged in user', user)
 
         return this.knex("session")
             .select("*")
@@ -127,7 +141,9 @@ class AppRouter {
             .select(
                 'session_climb.id',
                 'user_id',
+                'session_id',
                 'location_name',
+                'is_outdoor',
                 'route_name',
                 'type',
                 'grade',
@@ -149,6 +165,7 @@ class AppRouter {
                 'session_climb.id',
                 'user_id',
                 'location_name',
+                'is_outdoor',
                 'route_name',
                 'type',
                 'grade',
@@ -213,6 +230,44 @@ class AppRouter {
             .then((data) => {
                 res.json(data)
             })
+        })
+    }
+
+    //delete session climb by session_id
+    deleteBySession(req, res) {
+        console.log("deleting all climb from a session")
+        this.knex("session_climb")
+        .del()
+        .where({
+            session_id:req.params.id
+        })
+        .then((data) => {
+            console.log("all climb deleted from a session")
+            res.json(data)
+        })
+    }
+
+    //get all climb by session_id
+    getBySession(req, res){
+        console.log("getting all climb from a session")
+        this.knex("session_climb")
+        .where({
+            session_id:req.params.id
+        })
+        .then(async (data) => {
+            const selectedClimb = []
+            for (let element of data) {
+               let climb =  await this.knex("climb")
+                    .join("location", "location.id", "climb.location_id")
+                    .where({
+                        "climb.id": element.climb_id
+                    })
+                    .first()
+                    selectedClimb.push(climb)
+                }
+                console.log(selectedClimb);
+             res.json(selectedClimb)
+       
         })
     }
 

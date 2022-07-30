@@ -81,7 +81,7 @@ const ListLocation = () => {
             <ListGroup variant="flush" key={location.id}>
                 <ListGroup.Item 
                     onClick={() => {
-                        dispatch(addLocationData(location.location_name))
+                        dispatch(addLocationData(location))
                         navigate("/session")
                         }}
                     >{location.location_name}</ListGroup.Item>

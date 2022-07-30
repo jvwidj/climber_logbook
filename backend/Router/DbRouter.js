@@ -164,12 +164,18 @@ class DbRouter {
                 description: req.body.description,
                 location_id: req.body.location_id
             })
-            .then(() => {
+            .returning("id")
+            .then((data) => {
                 console.log("added new climbing route")
-                this.knex("climb")
-                    .then((data) => {
-                        res.json(data)
-                    })
+                console.log(data[0].id)
+                this.knex("session_climb")
+                .insert({
+                    session_id: req.body.session_id,
+                    climb_id: data[0].id
+                })
+                .then(() =>{
+                    console.log("session_climb insert completed")
+                })
             })
 
     }
