@@ -5,6 +5,8 @@ import locationReducer from "./LocationSlice"
 import selectedLocReducer from "./SelectedLoc"
 import climbReducer from "./ClimbSlice"
 import sessionClimbReducer from "./SessionClimbSlice"
+import selectedSessionClimbReducer from "./SelectedSessionClimb"
+import SelectedSessionReducer from "./SelectedSession";
 
 export const store = configureStore({
     reducer: {
@@ -12,8 +14,10 @@ export const store = configureStore({
         session: sessionReducer,
         sessionClimb: sessionClimbReducer,
         location: locationReducer,
+        climb : climbReducer,
         selectedLocation : selectedLocReducer,
-        climb : climbReducer
+        selectedSession : SelectedSessionReducer,
+        selectedSessionClimb : selectedSessionClimbReducer
 
     }
 })

@@ -3,7 +3,7 @@ import axios from "axios"
 
 //URL Data
 const api = `${process.env.REACT_APP_BACKEND}/api/sessions`
-const api2 = `${process.env.REACT_APP_BACKEND}/api/session`
+const api2 = `${process.env.REACT_APP_BACKEND}/api`
 
 //Initial State
 const initialState = {
@@ -54,13 +54,37 @@ export const postSession = createAsyncThunk(
     }
 )
 
+//Update session
+export const updateSession = createAsyncThunk(
+    'session/updateSession',
+    async ({session_id, location_id}) => {
+        try {
+            //console.log(session_id, location_id)
+            const res = await axios.put(
+                `${api2}/session/${session_id}`,
+                {
+                    location_id: `${location_id}`,
+                    date:"1990-01-01",
+                    start_time:"00:00:00",
+                    end_time:"00:00:00",
+                    is_private:"false"
+                },
+                {headers: {Authentication: `Bearer ${token}`}}
+            )
+            return res.data
+        } catch (error) {
+            console.log("update error", error)
+        }
+    }
+)
+
 //Delete session
 export const deleteSession = createAsyncThunk(
     'session/deleteSession',
     async (id) => {
         try {
             const res = await axios.delete(
-                `${api2}/${id}`,
+                `${api2}/session/${id}`,
                 {headers: {Authentication: `Bearer ${token}`}}
             )
             console.log("session deleted", id)
@@ -96,7 +120,9 @@ export const sessionSlice = createSlice({
         },
         [deleteSession.fulfilled]: (state, action) => {
             state.isLoading = false
-            
+        },
+        [updateSession.fulfilled]: (state, action) => {
+            state.isLoading = false
         },
 
     }

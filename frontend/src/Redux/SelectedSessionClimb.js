@@ -7,7 +7,6 @@ const api = `${process.env.REACT_APP_BACKEND}/api`
 //Initial State
 const initialState = {
     selectedClimbList: [],
-
 }
 
 /*************************** THUNKS ****************************** */
@@ -19,9 +18,10 @@ export const getSelectedClimb = createAsyncThunk(
         try {
             const res = 
             await axios.get(
-                `${api}/session/${id}`,
+                `${api}/climb/session/${id}`,
                 {headers: {Authorization: `Bearer ${token}`}}
             )
+            console.log(res.data)
             return res.data
         } catch (error) {
             

@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 
 import { Container } from 'react-bootstrap';
 import { deleteSession, getSessionList } from '../Redux/SessionSlice';
 import { deleteBySession } from '../Redux/SessionClimbSlice';
 import { useNavigate } from 'react-router-dom';
+import { getSelectedClimb } from '../Redux/SelectedSessionClimb';
+import { addSelectedSession } from '../Redux/SelectedSession';
 
 const ListSession = () => {
     const dispatch = useDispatch()
@@ -33,9 +35,12 @@ const ListSession = () => {
     //Detail Button
     async function detailButton(id) {
         try {
-            navigate("/session_detail")
+            dispatch(getSelectedClimb(id))
+            .then(() => {
+                navigate("/session_detail")
+            })
         } catch (error) {
-            
+            console.log(error)
         }
     }
 
@@ -60,7 +65,7 @@ const ListSession = () => {
                 {/* <th scope="col">Date</th> */}
                 <th scope="col">id</th>
                 {/* <th scope="col">Description</th> */}
-                <th scope="col"># of CLimb</th>
+                <th scope="col">climb</th>
                 <th scope="col">See Detail</th>
                 <th scope="col">Delete</th>
             </tr>
@@ -71,10 +76,12 @@ const ListSession = () => {
                 {/* <td>{session.date.slice(0,10)}</td> */}
                 <td>{session.id}</td>
                 {/* <td>{session.description}</td> */}
-                <td>#of Climb</td>
+                <td>TODO</td>
                 <td>
                     <button className='btn btn-secondary btn-sm'
-                        onClick={() => detailButton(session.id)}
+                        onClick={() => {
+                            dispatch(addSelectedSession(session))
+                            detailButton(session.id)}}
                     >
                     Detail
                     </button>
@@ -85,7 +92,7 @@ const ListSession = () => {
                     Delete
                     </button> */}
                     <button className='btn btn-danger btn-sm'
-                        onClick={() => deleteSessionButton(session.id)}
+                        onClick={() => {deleteSessionButton(session.id)}}
                     >
                     Delete
                     </button>

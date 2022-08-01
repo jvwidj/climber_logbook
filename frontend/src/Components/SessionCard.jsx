@@ -1,5 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
+import ClimbCard from './ClimbCard';
+
 
 //DatePicker
 import DatePicker from "react-datepicker";
@@ -8,14 +10,15 @@ import "react-datepicker/dist/react-datepicker.css";
 
 //Bootstrap
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 const SessionCard = () => {
     const navigate = useNavigate()
+    const dispatch = useDispatch()
     const { selectedLocation } = useSelector((store) => store.selectedLocation)
-    const [startDate, setStartDate] = useState(new Date())
-    //console.log(selectedLocation)
+    const [date, setDate] = useState(new Date())
+    const { selectedClimbList } = useSelector((store) => store.selectedSessionClimb)
 
   return (
     <Container>
@@ -24,8 +27,8 @@ const SessionCard = () => {
             Date: 
             <DatePicker
                     dateFormat="dd/MM/yyyy"
-                    selected={startDate}
-                    onChange={date => setStartDate(date)}
+                    selected={date}
+                    onChange={event => setDate(event)}
                 />
             </Row>
 
@@ -37,43 +40,15 @@ const SessionCard = () => {
 
             <Row className='my-2'>
             <button className='my-2'
-                onClick={() => navigate("/session/climb")}>Add Climb</button>
+                onClick={() => {
+                    navigate("/session/climb")}}>Add Climb</button>
             <hr />
             </Row>
 
             <Row>
-            <Card className='my-2'>
-            <Card.Header as="h5">Climb 1</Card.Header>
-            <Card.Body>
-                <Card.Title>Special title treatment</Card.Title>
-                <Card.Text>
-                With supporting text below as a natural lead-in to additional content.
-                </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-            </Card.Body>
-            </Card>
-
-            <Card className='my-2'>
-            <Card.Header as="h5">Climb 2</Card.Header>
-            <Card.Body>
-                <Card.Title>Special title treatment</Card.Title>
-                <Card.Text>
-                With supporting text below as a natural lead-in to additional content.
-                </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-            </Card.Body>
-            </Card>
-
-            <Card className='my-2'>
-            <Card.Header as="h5">Climb 3</Card.Header>
-            <Card.Body>
-                <Card.Title>Special title treatment</Card.Title>
-                <Card.Text>
-                With supporting text below as a natural lead-in to additional content.
-                </Card.Text>
-                <Button variant="primary">Go somewhere</Button>
-            </Card.Body>
-            </Card>
+            {selectedClimbList.map(climb => (
+                    <ClimbCard key={climb.id} {...climb}/>
+                ))}
             </Row>           
 
         </Col>

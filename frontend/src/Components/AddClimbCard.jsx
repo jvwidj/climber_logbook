@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { postClimb } from '../Redux/ClimbSlice';
 
 //Bootstrap
-import { Container, Row, Col, Card, Button, Dropdown } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Dropdown, Form } from 'react-bootstrap';
+import Type from './AddClimbComponents/Type';
+import GradeBouldering from './AddClimbComponents/GradeBouldering';
+import ClimbCompleted from './AddClimbComponents/ClimbCompleted';
+import ClimbAttempt from './AddClimbComponents/ClimbAttempt';
 
 const AddClimbCard = () => {
     const navigate = useNavigate()
@@ -12,17 +16,21 @@ const AddClimbCard = () => {
     const { selectedLocation } = useSelector((store) => store.selectedLocation)
     const { sessionList } = useSelector((store) => store.session)
 
+    const [ route_name, setRoute_name] = useState("")
+    const [ grade, setGrade ] = useState("")
+    const [ description, setDescription ] = useState("")
+
     //console.log(selectedLocation)
 
     const location_id = selectedLocation.id
     const location_name = selectedLocation.location_name
     const session_id = sessionList.id
-    console.log(session_id)
+    //console.log(session_id)
 
-    const route_name = 'Dummy route'
-    const grade = "V5"
+    //const route_name = 'Dummy route'
+    //const grade = "V5"
     const type = "Bouldering"
-    const description = "dummy description"
+    //const description = "dummy description"
     
 
     const onClickButton = async event => {
@@ -53,6 +61,8 @@ const AddClimbCard = () => {
     <Button onClick={onClickButton}>add</Button>
 
     <Col>
+
+        {/* BASIC INFORMATION */}
         <Row className='my-2'>
         <Card>
             <Card.Body>
@@ -62,40 +72,43 @@ const AddClimbCard = () => {
         </Card>
         </Row>
 
+        {/* CLIMBING TYPE & GRADE*/}
         <Row className='my-2'>
         <Card>
             <Card.Body>
                 <Col>
-                    <Dropdown>
-                        <Dropdown.Toggle size="sm" variant="secondary" id="dropdown-basic">
-                            Type
-                        </Dropdown.Toggle>
+                    {/* CLIMBING TYPE */}
+                    <Type />
 
-                        <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1" value=''>Bouldering</Dropdown.Item>
-                            <Dropdown.Item href="#/action-2" value=''>Sport</Dropdown.Item>
-                            <Dropdown.Item href="#/action-3" value=''>Trad</Dropdown.Item>
-                        </Dropdown.Menu>
-                        </Dropdown>
+                    {/* GRADE */}
+                    <GradeBouldering />
                 </Col>
-                <Col>Grading system</Col>
             </Card.Body>
         </Card>
         </Row>
 
+        
         <Row className='my-2'>
         <Card>
             <Card.Body>
-                V1
+                <form className='d-flex'>
+                    <input type="text" placeholder='add route name' 
+                        className='form-control' 
+                        value={route_name}
+                        onChange={event => setRoute_name(event.target.value)}
+                        />
+                </form>
             </Card.Body>
         </Card>
         </Row>
 
+
+        {/* COMPLETED & NUMBER OF ATTEMPT */}
         <Row className='my-2'>
         <Card>
             <Card.Body>
-               Completed <br />
-                Attempts
+               <ClimbCompleted />
+                <ClimbAttempt />
             </Card.Body>
         </Card>
         </Row> 
@@ -103,8 +116,13 @@ const AddClimbCard = () => {
         <Row className='my-2'>
         <Card>
             <Card.Body>
-               Notes <br />
-                Rating
+                <form className='d-flex'>
+                    <input type="text" rows={3} placeholder='Notes' 
+                        className='form-control' 
+                        value={description}
+                        onChange={event => setDescription(event.target.value)}
+                        />
+                </form>
             </Card.Body>
         </Card>
         </Row> 

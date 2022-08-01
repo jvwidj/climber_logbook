@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Button  } from 'react-bootstrap'
 
-const ClimbCard = ({type, grade, description}) => {
+const ClimbCard = ({type, grade, description, route_name}) => {
   return (
     <div>
             <Card className='my-2'>
@@ -9,6 +9,8 @@ const ClimbCard = ({type, grade, description}) => {
             <Card.Body>
                 <Card.Title>{grade}</Card.Title>
                 <Card.Text>
+                {route_name}
+                <br />
                 {description}
                 </Card.Text>
                 {/* <Button variant="primary">Go somewhere</Button> */}

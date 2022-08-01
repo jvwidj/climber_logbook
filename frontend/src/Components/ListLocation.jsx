@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap';
 import { addLocationData } from '../Redux/SelectedLoc';
+import { updateSession } from '../Redux/SessionSlice';
 
 const ListLocation = () => {
 
@@ -11,7 +12,10 @@ const ListLocation = () => {
     const dispatch = useDispatch()
 
     const { locationList } = useSelector((store) => store.location)
-    //console.log( locationList )
+    const { selectedSession } = useSelector((store) => store.selectedSession)
+    console.log( "selected session", selectedSession)
+
+    const session_id = selectedSession.id
 
     //Seach state
     const [search, setSearch] = useState("")
@@ -81,7 +85,11 @@ const ListLocation = () => {
             <ListGroup variant="flush" key={location.id}>
                 <ListGroup.Item 
                     onClick={() => {
+                        console.log("location id", location.id)
+                        const location_id = location.id
                         dispatch(addLocationData(location))
+                        //Update session. location_id
+                        dispatch(updateSession({session_id, location_id}))
                         navigate("/session")
                         }}
                     >{location.location_name}</ListGroup.Item>

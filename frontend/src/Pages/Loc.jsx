@@ -33,7 +33,7 @@ const Loc = () => {
     <div>
     <h2>Location</h2>
     <Button onClick={() =>  {
-      console.log(sessionList.id)
+      //console.log(sessionList.id)
       dispatch(deleteSession(sessionList.id))
       .then(() => {
         dispatch(getSessionList()) 

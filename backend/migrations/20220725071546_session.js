@@ -11,6 +11,9 @@ exports.up = function(knex) {
         table.integer("user_id").unsigned();
         table.foreign("user_id").references("users.id")
 
+        table.integer("location_id").unsigned();
+        table.foreign("location_id").references("location.id")
+
         table.date("date");
         table.time("start_time");
         table.time("end_time");

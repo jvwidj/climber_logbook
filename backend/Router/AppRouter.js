@@ -46,6 +46,7 @@ class AppRouter {
     getAllSession(req, res) {
         console.log('Get all sessions')
         return this.knex("session")
+            .join('location', "location.id", "session.location_id")
             .select("*")
             .then((data) => {
                 res.json(data)
@@ -102,6 +103,7 @@ class AppRouter {
             id:req.params.id
         })
         .update({
+            location_id: req.body.location_id,
             date: req.body.date,
             start_time: req.body.start_time,
             end_time: req.body.end_time,
@@ -257,8 +259,8 @@ class AppRouter {
         .then(async (data) => {
             const selectedClimb = []
             for (let element of data) {
-               let climb =  await this.knex("climb")
-                    .join("location", "location.id", "climb.location_id")
+               let climb =  await this.knex("location")
+                    .join("climb", "location.id", "climb.location_id")
                     .where({
                         "climb.id": element.climb_id
                     })
