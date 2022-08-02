@@ -1,10 +1,14 @@
 import React from 'react'
 import { Container, Form } from 'react-bootstrap'
 
-const GradeSport = () => {
+const GradeSport = (props) => {
   return (
     <Container>
-    <Form.Select aria-label="Default select example">
+    <Form.Select 
+    onChange={(event) => {
+        const selectedValue = event.target.value;
+        props.sendValue(selectedValue)
+      }}>
         <option value="4">4</option>
         <option value="4+">4+</option>
         <option value="5">5</option>

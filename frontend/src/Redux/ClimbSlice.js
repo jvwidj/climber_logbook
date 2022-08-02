@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import sessionReducer from "./SessionSlice";
 
 //URL
 const api = `${process.env.REACT_APP_BACKEND}/db`
@@ -34,7 +33,7 @@ export const getClimbList = createAsyncThunk(
 //Post new climb
 export const postClimb = createAsyncThunk(
     'climb/postClimb',
-    async ({location_id, route_name, grade, type, description, sessionList}) => {
+    async ({location_id, route_name, grade, type, description, sessionList, completed, attempt}) => {
         try {
             const res = await axios.post(
                 `${api}/climbs`,
@@ -44,7 +43,9 @@ export const postClimb = createAsyncThunk(
                     grade: `${grade}`,
                     type: `${type}`,
                     description: `${description}`,
-                    session_id: `${sessionList.id}`
+                    session_id: `${sessionList.id}`,
+                    completed:  `${completed}`,
+                    attempt: `${attempt}`,
                 }
                 )
             //console.log(res.data)

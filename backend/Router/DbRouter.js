@@ -171,7 +171,9 @@ class DbRouter {
                 this.knex("session_climb")
                 .insert({
                     session_id: req.body.session_id,
-                    climb_id: data[0].id
+                    climb_id: data[0].id,
+                    completed: req.body.completed,
+                    attempt: req.body.attempt,
                 })
                 .then(() =>{
                     console.log("session_climb insert completed")

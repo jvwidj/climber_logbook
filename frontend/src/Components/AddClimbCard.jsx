@@ -4,9 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import { postClimb } from '../Redux/ClimbSlice';
 
 //Bootstrap
-import { Container, Row, Col, Card, Button, Dropdown, Form } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button} from 'react-bootstrap';
+
+//Child Components
 import Type from './AddClimbComponents/Type';
 import GradeBouldering from './AddClimbComponents/GradeBouldering';
+import GradeSport from './AddClimbComponents/GradeSport'
+import GradeTrad from './AddClimbComponents/GradeTrad';
 import ClimbCompleted from './AddClimbComponents/ClimbCompleted';
 import ClimbAttempt from './AddClimbComponents/ClimbAttempt';
 
@@ -19,6 +23,9 @@ const AddClimbCard = () => {
     const [ route_name, setRoute_name] = useState("")
     const [ grade, setGrade ] = useState("")
     const [ description, setDescription ] = useState("")
+    const [ type, setType ] = useState("Bouldering")
+    const [ completed, setCompleted ]= useState(false)
+    const [ attempt, setAttempt ] = useState("1")
 
     //console.log(selectedLocation)
 
@@ -27,26 +34,29 @@ const AddClimbCard = () => {
     const session_id = sessionList.id
     //console.log(session_id)
 
-    //const route_name = 'Dummy route'
-    //const grade = "V5"
-    const type = "Bouldering"
-    //const description = "dummy description"
-    
+
+    console.log("climbing category", type, grade)
+    console.log("completed?", completed, "attempt", attempt)
 
     const onClickButton = async event => {
         event.preventDefault()
         try {
             console.log("New climb added")
-            //console.log(selectedLocation.id)
-            //console.log(route_name)
             dispatch(postClimb(
                     {location_id, 
                     route_name, 
                     grade, 
                     type,
                     description,
-                    sessionList}
+                    sessionList,
+                    completed,
+                    attempt
+                    }
                     ))
+            .then((data) => {
+                console.log(data.id)
+            })
+            //Post new session climb
             navigate("/session")
         } catch (error) {
             
@@ -66,7 +76,7 @@ const AddClimbCard = () => {
         <Row className='my-2'>
         <Card>
             <Card.Body>
-                <p>Bouldering at {/* Todo: Make dynamic. change type according to dropdown */}
+                <p>{grade} {type} at {/* Todo: Make dynamic. change type according to dropdown */}
                 <br/>{location_name}</p>
             </Card.Body>
         </Card>
@@ -78,10 +88,12 @@ const AddClimbCard = () => {
             <Card.Body>
                 <Col>
                     {/* CLIMBING TYPE */}
-                    <Type />
+                    <Type sendValue={(value) => setType(value)}/>
 
                     {/* GRADE */}
-                    <GradeBouldering />
+                    {type === "Bouldering" ? <GradeBouldering sendValue={(value) => setGrade(value)}/> 
+                        : type ==="Sport" ? <GradeSport sendValue={(value) => setGrade(value)}/> 
+                        : <GradeTrad sendValue={(value) => setGrade(value)}/>}
                 </Col>
             </Card.Body>
         </Card>
@@ -107,8 +119,8 @@ const AddClimbCard = () => {
         <Row className='my-2'>
         <Card>
             <Card.Body>
-               <ClimbCompleted />
-                <ClimbAttempt />
+               <ClimbCompleted sendValue={(value) => setCompleted(value)}/>
+                <ClimbAttempt sendValue={(value) => setAttempt(value)}/>
             </Card.Body>
         </Card>
         </Row> 

@@ -1,10 +1,15 @@
 import React from 'react'
 import { Container, Form } from 'react-bootstrap';
 
-const GradeBouldering = () => {
+const GradeBouldering = (props) => {
   return (
     <Container>
-    <Form.Select aria-label="Default select example">
+    <Form.Select 
+      onChange={(event) => {
+        const selectedValue = event.target.value;
+        props.sendValue(selectedValue)
+      }}
+      >
         <option value="VB">VB</option>
         <option value="V0">V0</option>
         <option value="V1">V1</option>
