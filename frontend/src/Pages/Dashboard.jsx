@@ -28,7 +28,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div>
+    <div style={{paddingBottom:"25px"}}>
     <h1>Dashboard</h1>
     <h5>You have successfully logged in!</h5>
     

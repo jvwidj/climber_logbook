@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 const Session = () => {
   const navigate = useNavigate()
+
+
   return (
     <div>
     <Button onClick={() => navigate("/location")}>back</Button>

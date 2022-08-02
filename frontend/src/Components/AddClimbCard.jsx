@@ -13,12 +13,14 @@ import GradeSport from './AddClimbComponents/GradeSport'
 import GradeTrad from './AddClimbComponents/GradeTrad';
 import ClimbCompleted from './AddClimbComponents/ClimbCompleted';
 import ClimbAttempt from './AddClimbComponents/ClimbAttempt';
+import { getSelectedClimb } from '../Redux/SelectedSessionClimb';
 
 const AddClimbCard = () => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const { selectedLocation } = useSelector((store) => store.selectedLocation)
     const { sessionList } = useSelector((store) => store.session)
+    const { selectedSession } = useSelector((store) => store.selectedSession)
 
     const [ route_name, setRoute_name] = useState("")
     const [ grade, setGrade ] = useState("")
@@ -31,8 +33,8 @@ const AddClimbCard = () => {
 
     const location_id = selectedLocation.id
     const location_name = selectedLocation.location_name
-    const session_id = sessionList.id
-    //console.log(session_id)
+    const session_id = selectedSession.id
+    //console.log(selectedSession)
 
 
     console.log("climbing category", type, grade)
@@ -42,8 +44,9 @@ const AddClimbCard = () => {
         event.preventDefault()
         try {
             console.log("New climb added")
+            //Post new session climb
             dispatch(postClimb(
-                    {location_id, 
+                {location_id, 
                     route_name, 
                     grade, 
                     type,
@@ -51,15 +54,17 @@ const AddClimbCard = () => {
                     sessionList,
                     completed,
                     attempt
-                    }
-                    ))
-            .then((data) => {
-                console.log(data.id)
-            })
-            //Post new session climb
+                }
+                ))
+                
+            //get selected climb
+            //TODO: fix bug. first item does not appear
+            await dispatch(getSelectedClimb(session_id))
+            console.log("get selected climb", session_id)
             navigate("/session")
+
         } catch (error) {
-            
+            console.log("error", error)
         }
     }
     

@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import ClimbCard from './ClimbCard';
-
 
 //DatePicker
 import DatePicker from "react-datepicker";
@@ -9,17 +8,19 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 //Bootstrap
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
-import { useDispatch, useSelector } from 'react-redux';
+import { Container, Row, Col } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 
 const SessionCard = () => {
     const navigate = useNavigate()
-    const dispatch = useDispatch()
     const { selectedLocation } = useSelector((store) => store.selectedLocation)
     const [date, setDate] = useState(new Date())
     const { selectedClimbList } = useSelector((store) => store.selectedSessionClimb)
+   
 
+    //console.log(Date())
+      
   return (
     <Container>
         <Col>
@@ -35,7 +36,7 @@ const SessionCard = () => {
             <Row className='my-2'>
             Climbing location: {selectedLocation.location_name}
             <br />
-            Number of climb: 
+            Number of climb: {selectedClimbList.length}
             </Row>
 
             <Row className='my-2'>

@@ -16,6 +16,9 @@ const ListLocation = () => {
     console.log( "selected session", selectedSession)
 
     const session_id = selectedSession.id
+    const d = new Date()
+    const date = d.toDateString()
+    console.log(date)
 
     //Seach state
     const [search, setSearch] = useState("")
@@ -23,17 +26,17 @@ const ListLocation = () => {
     //Search bar function
     function filterLoc() {
         return locationList
-                      .filter((val) => {
-                        if (search === "") {
-                          return val;
-                        } else if (
-                          val.location_name
-                            .toLowerCase()
-                            .includes(search.toLocaleLowerCase())
-                        ) {
-                          return val;
-                        }
-                      })
+            .filter((val) => {
+            if (search === "") {
+                return val;
+            } else if (
+                val.location_name
+                .toLowerCase()
+                .includes(search.toLocaleLowerCase())
+            ) {
+                return val;
+            }
+            })
       }
 
 
@@ -89,7 +92,7 @@ const ListLocation = () => {
                         const location_id = location.id
                         dispatch(addLocationData(location))
                         //Update session. location_id
-                        dispatch(updateSession({session_id, location_id}))
+                        dispatch(updateSession({session_id, location_id, date}))
                         navigate("/session")
                         }}
                     >{location.location_name}</ListGroup.Item>

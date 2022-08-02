@@ -20,7 +20,6 @@ const SessionCard = () => {
     console.log("number of climb", selectedClimbList.length)
 
 
-
   return (
     <Container>
         <Col>

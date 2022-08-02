@@ -57,14 +57,14 @@ export const postSession = createAsyncThunk(
 //Update session
 export const updateSession = createAsyncThunk(
     'session/updateSession',
-    async ({session_id, location_id}) => {
+    async ({session_id, location_id, date}) => {
         try {
             //console.log(session_id, location_id)
             const res = await axios.put(
                 `${api2}/session/${session_id}`,
                 {
                     location_id: `${location_id}`,
-                    date:"1990-01-01",
+                    date: `${date}`,
                     start_time:"00:00:00",
                     end_time:"00:00:00",
                     is_private:"false"
