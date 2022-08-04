@@ -175,8 +175,9 @@ class DbRouter {
                     completed: req.body.completed,
                     attempt: req.body.attempt,
                 })
-                .then(() =>{
-                    console.log("session_climb insert completed")
+                .then((data) =>{
+
+                    console.log("session_climb insert completed", data)
                 })
             })
 

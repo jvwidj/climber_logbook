@@ -21,7 +21,7 @@ export const getSelectedClimb = createAsyncThunk(
                 `${api}/climb/session/${id}`,
                 {headers: {Authorization: `Bearer ${token}`}}
             )
-            console.log(res.data)
+            console.log("get selected climb", res.data)
             return res.data
         } catch (error) {
             

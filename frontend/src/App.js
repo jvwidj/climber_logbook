@@ -1,54 +1,28 @@
-
-import {Routes, Route} from "react-router-dom"
-
-import './App.css';
-
-import Login from "./Pages/Login"
-import Dashboard from "./Pages/Dashboard"
-import RequireAuth from "./Components/Auth/RequireAuth";
-import Signup from "./Pages/Signup";
-import Loc from "./Pages/Loc";
-import Header from "./Components/Header";
-import Session from "./Pages/Session";
+//import Header from "./Components/Header";
 import NavbarFooter from "./Components/NavbarFooter";
-import AddClimb from "./Pages/AddClimb";
-import LocRoute from "./Pages/LocRoute";
-import SessionDetailPage from "./Pages/SessionDetailPage";
-//import Landing from "./Pages/Landing"
 
+//theme
+import ThemeProvider from "./theme";
+
+//Routes
+import Router from './router';
+import DashboardLayout from "./Layouts/Dashboard/Index";
+//
+import { useSelector } from "react-redux";
+
+
+// ----------------------------------------------------------------------
 
 function App() {
+  let isAuthenticated = useSelector((store) => store.auth.isAuthenticated)
   return (
-    <div className="App container">
+    <ThemeProvider>
+    
+      {isAuthenticated ? <DashboardLayout /> : null}
+        <Router />
+        {/* <NavbarFooter /> */}
+    </ThemeProvider>
 
-      {/* <Link to="/dashboard">Dashboard</Link> */}
-
-      {/* <Login /> */}
-      <Header />
-
-      <div>
-      <Routes>
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/" element={<Login />} />
-        <Route path="/location" element={<Loc />} />
-        <Route path="/location/route" element={<LocRoute />} />
-        <Route path="/session" element={<Session />} />
-        <Route path="/session_detail" element={<SessionDetailPage />} />
-        <Route path="/session/climb" element={<AddClimb />} />
-
-        <Route 
-          path="/dashboard"
-          element={
-            <RequireAuth redirectTo="/">
-              <Dashboard />
-            </RequireAuth>
-          }
-        />
-      </Routes>
-      </div>
-
-      <NavbarFooter />
-    </div>
   );
 }
 

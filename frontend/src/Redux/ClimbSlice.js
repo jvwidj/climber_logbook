@@ -22,7 +22,7 @@ export const getClimbList = createAsyncThunk(
 
         try {
             const res = await axios.get(`${api}/climbs`)
-                //console.log(res)
+                //console.log("get climb list",res.data)
                 return res.data
         } catch (err) {
             console.log("error", err)
@@ -45,7 +45,8 @@ export const postClimb = createAsyncThunk(
                     description: `${description}`,
                     session_id: `${sessionList.id}`,
                     completed:  `${completed}`,
-                    attempt: `${attempt}`,
+                    attempt: `${attempt}`
+                    
                 }
                 )
             //console.log(res.data)

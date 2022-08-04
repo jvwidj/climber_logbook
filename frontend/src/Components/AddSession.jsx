@@ -11,7 +11,7 @@ const AddSession = () => {
   //const dispatch = useDispatch()
   const dispatch = useDispatch()
   const { userData } = useSelector((store) => store.auth)
-  const { selectedSession } = useSelector((store) => store.selectedSession)
+  //const { selectedSession } = useSelector((store) => store.selectedSession)
   
   const onClickButton = async event => {
     event.preventDefault()
@@ -21,7 +21,7 @@ const AddSession = () => {
       .then((data) => {
         //console.log(data.payload)
         dispatch(addSelectedSession(data.payload))
-        console.log(selectedSession)
+        //console.log(selectedSession)
       })
       navigate("/location")
     } catch (error) {

@@ -18,6 +18,7 @@ const SessionCard = () => {
     const [date, setDate] = useState(new Date())
     const { selectedClimbList } = useSelector((store) => store.selectedSessionClimb)
    
+    console.log(selectedClimbList)
 
     //console.log(Date())
       

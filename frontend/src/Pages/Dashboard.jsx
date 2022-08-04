@@ -6,7 +6,17 @@ import PerformanceDash from '../Components/PerformanceDash'
 import { getUserData, logoutThunk } from '../Redux/authSlice'
 import { getSessionList } from '../Redux/SessionSlice'
 
+//@MUI
+import { useTheme } from '@mui/material/styles'
+import { Grid, Container, Typography, Button } from '@mui/material';
+// mocks_
+import account from '../_mock/account';
+
+//sections
+import AppWidgetSummary from '../Components/sections/@dashboard/app/AppWidgetSummary'
+
 const Dashboard = () => {
+  const theme = useTheme();
 
   const { isLoading } = useSelector((store) => store.session);
   const dispatch = useDispatch();
@@ -28,20 +38,41 @@ const Dashboard = () => {
   }
 
   return (
-    <div style={{paddingBottom:"25px"}}>
-    <h1>Dashboard</h1>
-    <h5>You have successfully logged in!</h5>
+    <Container maxWidth='xl'> 
     
-    <button onClick={() => {dispatch(logoutThunk())}}>Logout</button>
+
+    <Typography variant="h4" sx={{ mb: 5 }}>
+          {`Hi, Welcome ${account.fname}`}
+    </Typography>
+    
+    {/* <Button onClick={() => {dispatch(logoutThunk())}}>Logout</Button> */}
+    
+
+    <Grid container spacing={3}>
+      <Grid item xs={12} sm={6} md={3}>
+        <AppWidgetSummary title="Session Count" total={35} color="primary" icon={'ant-design:rocket-filled'}/>
+      </Grid>
+
+    <Grid item xs={12} sm={6} md={3}>
+      <AppWidgetSummary title="Average Grade" total={"V6"} color="secondary" icon={'ant-design:profile-filled'}/>
+    </Grid>
+
+    <Grid item xs={12} md={12} lg={12}>
+      <PerformanceDash />
+    </Grid>
+
+    <Grid item xs={12} sm={6} md={6}>
+      <ListSession />
+      TODO: only show 3-5 latest session
+    </Grid>
+    
 
 
-    <AddSession />
 
-    <div>
-    <ListSession />
-    </div>
-    <PerformanceDash />
-    </div>
+
+    
+    </Grid>
+    </Container>
   )
 }
 

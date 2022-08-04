@@ -40,9 +40,9 @@ const AddClimbCard = () => {
     console.log("climbing category", type, grade)
     console.log("completed?", completed, "attempt", attempt)
 
-    const onClickButton = async event => {
+    const onClickButton = event => {
         event.preventDefault()
-        try {
+        //try {
             console.log("New climb added")
             //Post new session climb
             dispatch(postClimb(
@@ -56,16 +56,19 @@ const AddClimbCard = () => {
                     attempt
                 }
                 ))
-                
+            
             //get selected climb
             //TODO: fix bug. first item does not appear
-            await dispatch(getSelectedClimb(session_id))
-            console.log("get selected climb", session_id)
+            dispatch(getSelectedClimb(session_id))
             navigate("/session")
+            
+            /* .then(() => {
+                console.log("get selected climb", session_id)
+            }) */
 
-        } catch (error) {
+        /* } catch (error) {
             console.log("error", error)
-        }
+        } */
     }
     
   return (
