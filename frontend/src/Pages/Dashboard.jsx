@@ -14,6 +14,8 @@ import account from '../_mock/account';
 
 //sections
 import AppWidgetSummary from '../Components/sections/@dashboard/app/AppWidgetSummary'
+import Page from '../Components/mui/Page'
+import AppRecentActivity from '../Components/sections/@dashboard/app/AppRecentActivity'
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -38,6 +40,8 @@ const Dashboard = () => {
   }
 
   return (
+    <Page title="Dashboard">
+
     <Container maxWidth='xl'> 
     
 
@@ -61,18 +65,18 @@ const Dashboard = () => {
       <PerformanceDash />
     </Grid>
 
-    <Grid item xs={12} sm={6} md={6}>
+    <Grid item xs={12} md={12} lg={12}>
+      <AppRecentActivity />
+    </Grid>
+
+    {/* <Grid item xs={12} sm={6} md={6}>
       <ListSession />
       TODO: only show 3-5 latest session
-    </Grid>
-    
-
-
-
-
+    </Grid> */}
     
     </Grid>
     </Container>
+    </Page>
   )
 }
 

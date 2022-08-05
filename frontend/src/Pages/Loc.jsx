@@ -8,6 +8,9 @@ import { useNavigate } from 'react-router-dom'
 import { deleteSession, getSessionList } from '../Redux/SessionSlice'
 
 import { Button } from "react-bootstrap"
+//
+import Page from '../Components/mui/Page'
+import { Container } from '@mui/material'
 
 const Loc = () => {
 
@@ -30,24 +33,27 @@ const Loc = () => {
   }
 
   return (
-    <div>
-    <h2>Location</h2>
-    <Button onClick={() =>  {
-      //console.log(sessionList.id)
-      dispatch(deleteSession(sessionList.id))
-      .then(() => {
-        dispatch(getSessionList()) 
-      })
-      .then(() => {
-        navigate("/dashboard")
-      })
-      }}>back</Button>
-    <SearchBar />
+    <Page title="Location">
+            <Container maxWidth='xl'>
+            <h2>Location</h2>
+            <Button onClick={() =>  {
+              //console.log(sessionList.id)
+              dispatch(deleteSession(sessionList.id))
+              .then(() => {
+                dispatch(getSessionList()) 
+              })
+              .then(() => {
+                navigate("/dashboard")
+              })
+              }}>back</Button>
+            <SearchBar />
 
-    <ListLocation />
+            <ListLocation />
 
-    <AddLocation />
-    </div>
+            <AddLocation />
+
+            </Container>
+    </Page>
 
   )
 }

@@ -2,7 +2,6 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { addSelectedSession } from '../Redux/SelectedSession'
-import { getSelectedClimb } from '../Redux/SelectedSessionClimb'
 import { postSession } from '../Redux/SessionSlice'
 
 

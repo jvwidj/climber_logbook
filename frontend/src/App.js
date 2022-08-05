@@ -17,8 +17,8 @@ function App() {
   let isAuthenticated = useSelector((store) => store.auth.isAuthenticated)
   return (
     <ThemeProvider>
-    
-      {isAuthenticated ? <DashboardLayout /> : null}
+
+      {isAuthenticated ? <DashboardLayout /> : null} {/* TODO: other navbar */}
         <Router />
         {/* <NavbarFooter /> */}
     </ThemeProvider>

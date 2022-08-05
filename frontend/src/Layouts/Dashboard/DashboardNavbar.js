@@ -21,7 +21,7 @@ const RootStyle = styled(AppBar)(({ theme }) => ({
     WebkitBackdropFilter: 'blur(6px)', // Fix on Mobile
     backgroundColor: alpha(theme.palette.background.default, 0.72),
     [theme.breakpoints.up('lg')]: {
-      width: "100%" //`calc(100% - ${DRAWER_WIDTH + 1}px)`,
+      width: `calc(100% - ${DRAWER_WIDTH + 1}px)`,
     },
   }));
   
@@ -49,7 +49,7 @@ const RootStyle = styled(AppBar)(({ theme }) => ({
 
                     <Box sx={{ flexGrow: 1 }} />
 
-                    <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={{ xs: 1, sm: 2 }}> {/* Move icon to flex-right;justifyContent doesn't work */}
+                    <Stack direction="row" justifyContent="space-between" alignItems="center" spacing={{ xs: 1, sm: 2 }}> 
                         <AccountPopover />
                         <AddButton />
                     </Stack>

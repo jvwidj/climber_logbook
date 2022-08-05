@@ -24,7 +24,7 @@ const MainStyle = styled('div')(({ theme }) => ({
     overflow: 'auto',
     minHeight: '100%',
     paddingTop: APP_BAR_MOBILE + 10,
-    paddingBottom: theme.spacing(2),
+    paddingBottom: theme.spacing(0),
     [theme.breakpoints.up('lg')] : {
         paddingTop: APP_BAR_DESKTOP + 10,
         paddingLeft: theme.spacing(0),

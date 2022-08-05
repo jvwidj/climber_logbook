@@ -35,11 +35,12 @@ export default function Router() {
         <Route path="/session" element={<Session />} />
         <Route path="/session_detail" element={<SessionDetailPage />} />
         <Route path="/session/climb" element={<AddClimb />} />
+
         <Route path="/dashboard/activity" element={<Activity />} />
         <Route path="/dashboard/profile" element={<Profile />} />
 
           <Route 
-            path="dashboard"
+            path="/dashboard"
             element={
               <RequireAuth redirectTo="/login">
                 <Dashboard />
