@@ -10,7 +10,7 @@ import DashboardSidebar from "./DashboardSidebar";
 
 //---------------------------------------------------------------
 
-const APP_BAR_MOBILE = 64;
+/* const APP_BAR_MOBILE = 64;
 const APP_BAR_DESKTOP = 92;
 
 const RootStyle = styled('div') ({
@@ -30,7 +30,7 @@ const MainStyle = styled('div')(({ theme }) => ({
         paddingLeft: theme.spacing(0),
         paddingRight: theme.spacing(1),
     }
-}));
+})); */
 
 // -----------------------------------------------------
 
@@ -38,12 +38,9 @@ export default function DashboardLayout() {
     const [open, setOpen ] = useState(false);
 
     return (
-        <RootStyle>
+        <>
             <DashboardNavbar onOpenSidebar={() => setOpen(true)} />
             <DashboardSidebar isOpenSidebar= {open} onCloseSidebar= {() => setOpen(false)} />
-            <MainStyle>
-                <Outlet />
-            </MainStyle>
-        </RootStyle>
+        </>
     )
 }

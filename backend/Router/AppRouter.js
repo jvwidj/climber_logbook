@@ -60,9 +60,26 @@ class AppRouter {
 
         return this.knex("session")
             .select("*")
-            .where("user_id", user.id)
             .then((data) => {
-                res.json(data)
+                this.knex('session')
+                .join('location', 'location.id', 'session.location_id')
+                .where("user_id", user.id)
+                .select(
+                    'session.id',
+                    'user_id',
+                    'location_id',
+                    'location_name',
+                    'location_description',
+                    'is_outdoor',
+                    'description',
+                    'is_private',
+                    'date',
+                    
+                )
+                .then((data) => {
+                    console.log(data)
+                    res.json(data)
+                })
             })
     }
 

@@ -176,7 +176,7 @@ class DbRouter {
                     attempt: req.body.attempt,
                 })
                 .then((data) =>{
-
+                    res.send("")
                     console.log("session_climb insert completed", data)
                 })
             })

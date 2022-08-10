@@ -23,6 +23,7 @@ auth(knex).initialize();
 const AppRouter = require("./Router/AppRouter")
 const DbRouter = require("./Router/DbRouter");
 const AuthRouter = require("./Router/AuthRouter")
+const SocialRouter = require("./Router/SocialRouter")
 
 /** ************** Verify - Decode JWT ***********************/
 
@@ -30,7 +31,7 @@ function decode(req){
     let token = req.headers.authorization;
 
     token = token.replace("Bearer ", ""); // "Bearer " -> Bearer + space
-    return this.jwt.verify(token, process.env.JWT_SECRET)
+    return jwt.verify(token, process.env.JWT_SECRET)
 
 }
 
@@ -38,6 +39,7 @@ function decode(req){
 app.use("/api", new AppRouter(express, knex, jwt).router())
 app.use("/db", new DbRouter(express, knex, jwt).router());
 app.use("/auth", new AuthRouter(express, knex, jwt, decode).router());
+app.use("/social", new SocialRouter(express, knex, jwt).router())
 
 /** *********************** App Listen  **************************** */
 app.listen(process.env.PORT, () => {

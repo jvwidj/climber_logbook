@@ -4,8 +4,8 @@ import Paper from './Paper';
 import Card from './Card';
 import CssBaseline from './CssBaseline';
 import Tooltip from './Tooltip';
-/* 
 import Input from './Input';
+/* 
 import Button from './Button';
 import Backdrop from './Backdrop';
 import Typography from './Typography';
@@ -18,8 +18,9 @@ export default function ComponentsOverrides(theme) {
     Card(theme),
     Paper(theme),
     Tooltip(theme),
+    Input(theme)
     //CssBaseline(theme),
-    /* Input(theme),
+    /* ,
     Button(theme),
     Backdrop(theme),
     Typography(theme),

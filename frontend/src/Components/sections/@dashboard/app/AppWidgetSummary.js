@@ -25,13 +25,6 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
   
   // ----------------------------------------------------------------------
 
-  AppWidgetSummary.propTypes = {
-    color: PropTypes.string, 
-    icon: PropTypes.string,
-    title: PropTypes.string.isRequired,
-    total: PropTypes.number.isRequired,
-    sx: PropTypes.object,
-  };
 
   export default function AppWidgetSummary({title, total, icon, color = 'primary', sx, ...other}){
     return (
@@ -60,7 +53,7 @@ const IconWrapperStyle = styled('div')(({ theme }) => ({
             <Iconify icon={icon} width={24} height={24} />
         </IconWrapperStyle>
 
-        <Typography variant="h2">{(total)}</Typography>
+        <Typography variant="h2">{total}</Typography>
         <Typography variant="subtitle2" sx={{opacity: 0.5}}>{title}</Typography>
 
         </Card>

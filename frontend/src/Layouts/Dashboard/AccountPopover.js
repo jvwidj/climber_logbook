@@ -1,41 +1,53 @@
-import { useRef, useState } from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link as RouterLink } from "react-router-dom";
 // @mui
-import { alpha } from '@mui/material/styles';
-import { Box, Divider, Typography, Stack, MenuItem, Avatar, IconButton } from '@mui/material';
+import { alpha } from "@mui/material/styles";
+import {
+  Box,
+  Divider,
+  Typography,
+  Stack,
+  MenuItem,
+  Avatar,
+  IconButton,
+} from "@mui/material";
 // components
-import MenuPopover from '../../Components/mui/MenuPopover';
+import MenuPopover from "../../Components/mui/MenuPopover";
 // mocks_
-import account from '../../_mock/account';
+import account from "../../_mock/account";
 
 //Logout
-import { logoutThunk } from '../../Redux/authSlice';
-import { useDispatch } from 'react-redux';
-
+import { logoutThunk } from "../../Redux/authSlice";
 
 // ----------------------------------------------------------------------
 
 const MENU_OPTIONS = [
   {
-    label: 'Home',
-    icon: 'eva:home-fill',
-    linkTo: '/dashboard',
+    label: "Home",
+    icon: "eva:home-fill",
+    linkTo: "/dashboard",
   },
   {
-    label: 'Activity',
-    icon: 'eva:person-fill',
-    linkTo: '/dashboard/activity',
+    label: "Activity",
+    icon: "eva:person-fill",
+    linkTo: "/dashboard/activity",
   },
   {
-    label: 'Profile',
-    icon: 'eva:settings-2-fill',
-    linkTo: '/dashboard/profile',
+    label: "Profile",
+    icon: "eva:settings-2-fill",
+    linkTo: "/dashboard/profile",
   },
 ];
 
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const { userData } = useSelector((store) => store.auth);
+  /* const fname = userData[0].fname;
+  const lname = userData[0].lname;
+  const email = userData[0].email; */
+
   const dispatch = useDispatch();
   const anchorRef = useRef(null);
 
@@ -57,13 +69,13 @@ export default function AccountPopover() {
         sx={{
           p: 0,
           ...(open && {
-            '&:before': {
+            "&:before": {
               zIndex: 1,
               content: "''",
-              width: '100%',
-              height: '100%',
-              borderRadius: '50%',
-              position: 'absolute',
+              width: "100%",
+              height: "100%",
+              borderRadius: "50%",
+              position: "absolute",
               bgcolor: (theme) => alpha(theme.palette.grey[900], 0.8),
             },
           }),
@@ -80,34 +92,44 @@ export default function AccountPopover() {
           p: 0,
           mt: 1.5,
           ml: 0.75,
-          '& .MuiMenuItem-root': {
-            typography: 'body2',
+          "& .MuiMenuItem-root": {
+            typography: "body2",
             borderRadius: 0.75,
           },
         }}
       >
         <Box sx={{ my: 1.5, px: 2.5 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.username}
+            {/* {fname} {lname} */}
           </Typography>
-          <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
-            {account.email}
+          <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>
+            {/* {email} */}
           </Typography>
         </Box>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+        <Divider sx={{ borderStyle: "dashed" }} />
 
         <Stack sx={{ p: 1 }}>
           {MENU_OPTIONS.map((option) => (
-            <MenuItem key={option.label} to={option.linkTo} component={RouterLink} onClick={handleClose}>
+            <MenuItem
+              key={option.label}
+              to={option.linkTo}
+              component={RouterLink}
+              onClick={handleClose}
+            >
               {option.label}
             </MenuItem>
           ))}
         </Stack>
 
-        <Divider sx={{ borderStyle: 'dashed' }} />
+        <Divider sx={{ borderStyle: "dashed" }} />
 
-        <MenuItem onClick={() => {dispatch(logoutThunk())}} sx={{ m: 1 }}>
+        <MenuItem
+          onClick={() => {
+            dispatch(logoutThunk());
+          }}
+          sx={{ m: 1 }}
+        >
           Logout
         </MenuItem>
       </MenuPopover>

@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import LoginForm from '../Components/sections/@dashboard/auth/login/LoginForm'
 import { loginThunk } from '../Redux/authSlice'
 
+//@mui
+import { Stack, IconButton, InputAdornment, FilledInput, Button } from '@mui/material' 
+import Iconify from '../Components/Iconify'
 
-const Login = () => {
+
+const Login = ({sx, color="grey", ...other}) => {
+
+  const [ showPassword, setShowPassword ] = useState(false);
 
   const [credential, setCredential] = useState({
     email:"",
@@ -31,31 +38,54 @@ const Login = () => {
   }
 
   return (
-   <div>
+    <Stack spacing={2}>
+
       <h1>Login</h1>
 
-      {/* username */}
-      <input
+      {/* <LoginForm /> */}
+
+      
+      <FilledInput
+        sx={{
+                  py: 0,
+                  boxShadow: 0,
+                  textAlign: 'center',
+                  display: 'block',
+                  color: (theme) => theme.palette[color].darker,
+                  bgcolor: (theme) => theme.palette[color].lighter,
+                  ...sx,
+              }}
+              {...other}
         type="text"
         name="username"
         placeholder='username'
         onChange={handleChange}
       />
 
-      {/* password */}
-      <input
+      
+      <FilledInput
         type="password"
         name="password"
         placeholder='password'
         onChange={handleChange}
+        InputProps={{
+              endAdornment: (
+              <InputAdornment position="end">
+                  <IconButton onClick={() => setShowPassword(!showPassword)} edge="end">
+                  <Iconify icon={showPassword ? 'eva:eye-fill' : 'eva:eye-off-fill'} />
+                  </IconButton>
+              </InputAdornment>
+              ),
+          }}
       />
 
-      {/* submit button */}
-      <button type='submit' onClick={() => dispatch(loginThunk(credential))}>
+      
+      <Button type='submit' onClick={() => dispatch(loginThunk(credential))}>
         Login
-      </button>
+      </Button>
 
-   </div>
+
+    </Stack>
   )
 }
 

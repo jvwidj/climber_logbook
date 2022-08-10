@@ -80,7 +80,7 @@ export const climbSlice = createSlice({
         },
         [postClimb.fulfilled]: (state, action) => {
             state.isLoading = false
-            state.climbingList = action.payload
+            //state.climbingList = action.payload
         },
 
     }
