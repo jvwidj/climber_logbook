@@ -31,7 +31,7 @@ const Dashboard = () => {
     dispatch(getUserData());
     dispatch(getSessionList());
     dispatch(getClimbList());
-  }, []);
+  }, [dispatch]);
 
   const theme = useTheme();
 
@@ -41,7 +41,10 @@ const Dashboard = () => {
   const { sessionList } = useSelector((store) => store.session);
   const { climbingList } = useSelector((store) => store.climb);
   const { userData } = useSelector((store) => store.auth);
-  console.log(userData[0]);
+
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
 
   //const fname = userData[0].fname;
 
@@ -59,7 +62,8 @@ const Dashboard = () => {
 
       <Container maxWidth="xl" sx={{ pb: 10 }}>
         <Typography variant="h4" sx={{ mb: 3 }}>
-          {`Hi, Welcome ${userData[0].fname && userData[0].fname}`}
+          {/* {`Hi, Welcome ${userData[0] && userData[0].fname}`} */}
+          {`Hi, Welcome ${userData ? userData.fname : ""}`}
         </Typography>
 
         <Grid container spacing={2}>

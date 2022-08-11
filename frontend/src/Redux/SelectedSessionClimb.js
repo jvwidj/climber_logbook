@@ -2,42 +2,46 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 //URL Data
-const api = `${process.env.REACT_APP_BACKEND}/api`
+const api = `${process.env.REACT_APP_BACKEND}/api`;
 
 //Initial State
 const initialState = {
-    selectedClimbList: [],
-}
+  selectedClimbList: [],
+};
 
 /*************************** THUNKS ****************************** */
-const token = localStorage.getItem("TOKEN")
+const token = localStorage.getItem("TOKEN");
 
 export const getSelectedClimb = createAsyncThunk(
-    'selectedClimb',
-    async (id) => {
-        try {
-            const res = 
-            await axios.get(
-                `${api}/climb/session/${id}`,
-                {headers: {Authorization: `Bearer ${token}`}}
-            )
-            console.log("get selected climb", res.data)
-            return res.data
-        } catch (error) {
-            
-        }
-    }
-)
+  "selectedClimb",
+  async (id) => {
+    try {
+      const res = await axios.get(`${api}/climb/session/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      console.log("get selected climb", res.data);
+      return res.data;
+    } catch (error) {}
+  }
+);
+
+/* export const getSelectedClimb = async (id) => {
+  const res = await axios.get(`${api}/climb/session/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+  console.log("get selected climb", res.data);
+  return res.data;
+}; */
 
 export const selectedSessionClimb = createSlice({
-    name: 'selectedSessionClimb',
-    initialState,
-    extraReducers: {
-        [getSelectedClimb.fulfilled]: (state, action) => {
-            state.selectedClimbList = action.payload
-        },
-    }
-})
+  name: "selectedSessionClimb",
+  initialState,
+  extraReducers: {
+    [getSelectedClimb.fulfilled]: (state, action) => {
+      state.selectedClimbList = action.payload;
+    },
+  },
+});
 
 //export slice
 export default selectedSessionClimb.reducer;

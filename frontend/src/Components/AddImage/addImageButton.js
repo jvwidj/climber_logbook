@@ -1,38 +1,35 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-//
-import { addSelectedSession } from "../../Redux/SelectedSession";
-import { postSession } from "../../Redux/SessionSlice";
-// @mui
+//@mui
 import { alpha } from "@mui/material/styles";
 import { IconButton } from "@mui/material";
-import Iconify from "../../Components/Iconify";
+import Iconify from "../Iconify";
+import axios from "axios";
 
-export default function AddButton() {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const { userData } = useSelector((store) => store.auth);
+const AddImageButton = () => {
   const [open, setOpen] = useState(null);
+  const [uploadImage, setUploadImage] = useState("");
 
   const onClickButton = async (event) => {
-    console.log("new Session");
     event.preventDefault();
     setOpen(event.currentTarget);
     setOpen(null);
+    console.log("add image");
     try {
-      const user_id = userData.id;
-      dispatch(postSession(user_id)).then((data) => {
-        //console.log(data.payload)
-        dispatch(addSelectedSession(data.payload));
-        //console.log(selectedSession)
-      });
-      navigate("/location");
+      await axios.post("http://localhost:8000/media/upload", uploadImage);
     } catch (error) {}
   };
 
   return (
     <>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => {
+          const data = new FormData();
+          data.append("file", e.target.files[0]);
+          setUploadImage(data);
+        }}
+      />
       <IconButton
         onClick={onClickButton}
         sx={{
@@ -50,8 +47,14 @@ export default function AddButton() {
           }),
         }}
       >
-        <Iconify icon="ant-design:plus-outlined" width={30} height={30} />
+        <Iconify
+          icon="ant-design:video-camera-add-outlined"
+          width={30}
+          height={30}
+        />
       </IconButton>
     </>
   );
-}
+};
+
+export default AddImageButton;

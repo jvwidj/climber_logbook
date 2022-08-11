@@ -79,7 +79,7 @@ const Activity = () => {
   return (
     <Page title="Dashboard: Page">
       <Container maxWidth="xl">
-        <TabContext value={tabNum}>
+        <TabContext value={tabNum} sx={{ px: 0 }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <TabList onChange={handleChange} centered>
               <Tab label="User" value="1" />
@@ -87,7 +87,7 @@ const Activity = () => {
               <Tab label="Everyone" value="3" />
             </TabList>
           </Box>
-          <TabPanel value="1">
+          <TabPanel value="1" sx={{ px: 0 }}>
             <Stack
               direction="row"
               alignItems="center"
@@ -133,11 +133,12 @@ const Activity = () => {
             </Card>
           </TabPanel>
 
-          <TabPanel value="2">
+          <TabPanel value="2" sx={{ px: 0 }}>
             <Stack
               direction="row"
               alignItems="center"
               justifyContent="space-between"
+              ml={0}
               mb={3}
               mt={3}
             >
@@ -165,7 +166,7 @@ const Activity = () => {
 
               <Divider />
 
-              <Box sx={{ p: 2, textAlign: "right" }}>
+              <Box sx={{ p: 2, textAlign: "right", justifyContent: "center" }}>
                 {/* <Button 
                         size="small" 
                         color="inherit" 
@@ -174,12 +175,14 @@ const Activity = () => {
                         >
                     Pagination
                     </Button> */}
-                <Pagination count={4} />
+                <Pagination count={5} />
               </Box>
             </Card>
           </TabPanel>
 
-          <TabPanel value="3">Everyone</TabPanel>
+          <TabPanel value="3" sx={{ px: 0 }}>
+            Everyone
+          </TabPanel>
         </TabContext>
 
         {/* <Grid container spacing={3}>

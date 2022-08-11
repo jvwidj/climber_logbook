@@ -48,7 +48,7 @@ export const getUserData = createAsyncThunk("userData", async () => {
     const res = await axios.get(`${process.env.REACT_APP_BACKEND}/auth/users`, {
       headers: { Authorization: `Bearer ${token}` },
     });
-    return res.data;
+    return res.data[0];
   } catch (error) {
     console.log("error", error);
   }
@@ -58,7 +58,7 @@ const authSlice = createSlice({
   name: "Auth",
   initialState: {
     isAuthenticated: false || localStorage.getItem("TOKEN") != null,
-    userData: [],
+    userData: {},
   },
   reducers: {
     login: (state) => {
@@ -70,6 +70,7 @@ const authSlice = createSlice({
   },
   extraReducers: {
     [getUserData.fulfilled]: (state, action) => {
+      console.log("payload", action.payload);
       state.userData = action.payload;
     },
   },
