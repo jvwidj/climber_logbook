@@ -268,6 +268,7 @@ class AppRouter {
         for (let element of data) {
           let climb = await this.knex("location")
             .join("climb", "location.id", "climb.location_id")
+            .join("session_climb", "climb.id", "session_climb.climb_id")
             .where({
               "climb.id": element.climb_id,
             })
