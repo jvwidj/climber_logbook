@@ -21,6 +21,7 @@ import AppSessionCountChart from "../Components/sections/@dashboard/app/AppSessi
 import { getClimbList } from "../Redux/ClimbSlice";
 import CalcBoulderingGrade from "../Components/Performance/CalcBoulderingGrade";
 import { configureStore } from "@reduxjs/toolkit";
+import AppGradeChart from "../Components/sections/@dashboard/app/AppGradeChart";
 
 //data
 
@@ -83,9 +84,18 @@ const Dashboard = () => {
             />
           </Grid>
 
+          <Grid item xs={12} sm={6} md={3}>
+            <AppWidgetSummary
+              title="Session Count"
+              total={sessionList.length}
+              color="primary"
+              icon={"clarity:line-chart-solid"}
+            />
+          </Grid>
+
           <Grid item xs={12} md={6} lg={8}>
             <AppSessionCountChart
-              title="Session Count"
+              title="Session Distribution"
               chartLabels={[
                 "01/01/2022",
                 "02/01/2022",
@@ -105,22 +115,9 @@ const Dashboard = () => {
                   name: "Session",
                   type: "area",
                   fill: "gradient",
-                  data: [20, 4, 24, 31, 15, 5, 6, 3, 19, 20, 21, 23],
+                  data: [0, 0, 0, 5, 0, 5, 6, 3, 10, 15, 21, 23],
                 },
               ]}
-            />
-          </Grid>
-
-          {/* <Grid item xs={12} md={12} lg={12}>
-      <PerformanceDash />
-    </Grid> */}
-
-          <Grid item xs={12} sm={6} md={3}>
-            <AppWidgetSummary
-              title="Session Count"
-              total={sessionList.length}
-              color="primary"
-              icon={"ant-design:rocket-filled"}
             />
           </Grid>
 
@@ -129,9 +126,38 @@ const Dashboard = () => {
               title="Average Grade"
               total={"V6"}
               color="secondary"
-              icon={"ant-design:profile-filled"}
+              icon={"carbon:skill-level-advanced"}
             />
           </Grid>
+
+          <Grid item xs={12} md={6} lg={8}>
+            <AppGradeChart
+              title="Grade Distribution"
+              chartData={[
+                { label: "V15", value: 0 },
+                { label: "V14", value: 0 },
+                { label: "V13", value: 0 },
+                { label: "V12", value: 0 },
+                { label: "V11", value: 0 },
+                { label: "V10", value: 0 },
+                { label: "V9", value: 2 },
+                { label: "V8", value: 3 },
+                { label: "V7", value: 8 },
+                { label: "V6", value: 10 },
+                { label: "V5", value: 15 },
+                { label: "V4", value: 20 },
+                { label: "V3", value: 16 },
+                { label: "V2", value: 13 },
+                { label: "V1", value: 10 },
+                { label: "V0", value: 0 },
+                { label: "VB", value: 0 },
+              ]}
+            />
+          </Grid>
+
+          {/* <Grid item xs={12} md={12} lg={12}>
+      <PerformanceDash />
+    </Grid> */}
 
           <Grid item xs={12} md={6} lg={3}>
             <AppRecentActivity />

@@ -36,8 +36,8 @@ const AddClimbCard = () => {
   const session_id = selectedSession.id;
   //console.log(selectedSession)
 
-  console.log("climbing category", type, grade);
-  console.log("completed?", completed, "attempt", attempt);
+  //console.log("climbing category", type, grade);
+  //console.log("completed?", completed, "attempt", attempt);
 
   const onClickButton = (event) => {
     event.preventDefault();

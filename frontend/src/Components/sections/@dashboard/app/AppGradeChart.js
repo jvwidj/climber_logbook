@@ -7,26 +7,31 @@ import { BaseOptionChart } from "../../../../Components/chart";
 
 // ----------------------------------------------------------------
 
-export default function AppSessionCountChart({
-  chartData,
-  chartLabels,
-  title,
-  ...other
-}) {
+export default function AppSessionCountChart({ chartData, title, ...other }) {
+  const chartLabels = chartData.map((i) => i.label);
+  const chartSeries = chartData.map((i) => i.value);
+
   const chartOptions = merge(BaseOptionChart(), {
-    plotOptions: { bar: { columnWidth: "16%" } },
+    plotOptions: {
+      bar: { horizontal: true, barHeight: "8%", borderRadius: 1.5 },
+    },
     fill: { type: chartData.map((i) => i.fill) },
-    labels: chartLabels,
-    xaxis: { type: "datetime" },
+    //labels: chartLabels,
+    xaxis: {
+      categories: chartLabels,
+      type: "string",
+      labels: {
+        style: {
+          fontSize: "0.5rem",
+        },
+      },
+    },
     tooltip: {
-      shared: true,
-      intersect: false,
+      marker: { show: false },
       y: {
-        formatter: (y) => {
-          if (typeof y !== "undefined") {
-            return `${y.toFixed(0)} sessions`;
-          }
-          return y;
+        formatter: (seriesName) => seriesName,
+        title: {
+          formatter: () => "",
         },
       },
     },
@@ -37,8 +42,8 @@ export default function AppSessionCountChart({
       <CardHeader title={title} />
       <Box sx={{ p: 2, pb: 1, pt: 0 }} dir="ltr">
         <ReactApexChart
-          type="line"
-          series={chartData}
+          type="bar"
+          series={[{ data: chartSeries }]}
           options={chartOptions}
           height={250}
         />
