@@ -6,6 +6,7 @@ import { Box, Stack, Link, Typography } from "@mui/material";
 //
 import Iconify from "../../../Iconify";
 import ClimbCard from "../../../ClimbCard";
+import ImageDialog from "../../../AddImage/ImageDialog";
 
 // -----------------------------------------------------------------------------
 
@@ -22,33 +23,44 @@ const SessionCard = (climb) => {
   console.log(selectedSession);
   console.log("number of climb", selectedClimbList.length);
 
-  const { route_name, grade, completed, attempt } = climb.climb;
+  const { route_name, grade, completed, attempt, climb_id } = climb.climb;
   console.log(climb);
   console.log("is ccompleted???", completed, attempt);
+
+  //Detail Link
+  async function climbLink(id) {
+    try {
+      console.log(id);
+      /* dispatch(getSelectedClimb(id)).then(() => {
+        navigate("/session_detail");
+      }); */
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <Stack direction="row" alignItems="center" spacing={2}>
       <Box sx={{ minWidth: 140, flexGrow: 1 }}>
         <Link
-          color="inherit"
-          variant="subtitle2"
+          variant="body2"
+          sx={{ color: "text.primary" }}
           underline="hover"
-          onClick={() => {}}
+          noWrap
+          onClick={() => {
+            climbLink(climb_id);
+          }}
         >
-          {""}
-        </Link>
-
-        <Typography variant="body2" sx={{ color: "text.primary" }} noWrap>
-          {grade} - {route_name}{" "}
+          {grade} - {route_name}
+          {"   "}
           {completed ? (
             <Iconify
               size="xs"
               sx={{ color: "primary.dark", mx: 0 }}
               icon={"akar-icons:circle-check-fill"}
-              onClick={() => {}}
             />
           ) : null}
-        </Typography>
+        </Link>
 
         <Typography
           variant="body2"
@@ -62,6 +74,8 @@ const SessionCard = (climb) => {
                             {dateFormat}
                     </Typography> */}
       </Box>
+
+      <ImageDialog climb_id={climb_id} />
 
       <Box>
         <Iconify

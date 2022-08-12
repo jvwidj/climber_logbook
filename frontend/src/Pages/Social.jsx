@@ -6,7 +6,7 @@ import axios from "axios";
 const Social = () => {
   const dispatch = useDispatch();
   const { userList } = useSelector((store) => store.social);
-  console.log(userList);
+  //console.log(userList);
 
   useEffect(() => {
     dispatch(getUserList());

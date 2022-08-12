@@ -3,7 +3,7 @@ import axios from "axios";
 
 //SIGNUP THUNK
 export const signupThunk =
-  ({ username, email, password }) =>
+  ({ username, email, password, fname, lname }) =>
   async () => {
     const res = await axios.post(
       `${process.env.REACT_APP_BACKEND}/auth/signup`,
@@ -11,6 +11,8 @@ export const signupThunk =
         username,
         email,
         password,
+        fname,
+        lname,
       }
     );
     console.log("response", res);

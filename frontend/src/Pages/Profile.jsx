@@ -29,7 +29,7 @@ const Profile = () => {
           alignItems="center"
           spacing={{ xs: 1, sm: 2 }}
         >
-          <AddImageButton />
+          {/* <AddImageButton /> */}
         </Stack>
 
         <Stack
@@ -42,7 +42,7 @@ const Profile = () => {
             <Box key={index}>
               <img
                 src={"http://localhost:8000/media/image/" + image}
-                style={{ width: "200px" }}
+                style={{ width: "300px" }}
                 alt=""
               />
             </Box>

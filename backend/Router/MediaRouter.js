@@ -28,7 +28,14 @@ class MediaRouter {
 
   //get single image
   getImage(req, res) {
-    console.log("get image");
+    let names = this.fs.readdirSync(__dirname + "/uploaded/climb");
+    //console.log("names", names);
+    let imageName = names.filter(
+      (name) => name.split(".")[0] == req.params.name
+    );
+    console.log("correct name", imageName);
+    // let file = /${req.params.name}\.\w+/;
+    // console.log("get image", file);
     res.sendFile(__dirname + "/uploaded/climb/" + req.params.name);
   }
 
@@ -41,6 +48,18 @@ class MediaRouter {
       __dirname + "/uploaded/climb/" + req.params.climb_id + "." + extension,
       req.files.file.data
     );
+
+    this.knex("session_climb")
+      .where({
+        climb_id: req.params.climb_id,
+      })
+      .update({
+        media: `${req.params.climb_id}.${extension}`,
+      })
+      .then(() => {
+        console.log("uploaddd successfulll");
+        //res.json(data);
+      });
     res.send("upload successful");
   }
 }

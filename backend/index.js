@@ -40,7 +40,7 @@ function decode(req) {
 }
 
 /** *********************** Configure Router **************************** */
-app.use("/api", new AppRouter(express, knex, jwt).router());
+app.use("/api", new AppRouter(express, knex, jwt, fs).router());
 app.use("/db", new DbRouter(express, knex, jwt).router());
 app.use("/auth", new AuthRouter(express, knex, jwt, decode).router());
 app.use("/social", new SocialRouter(express, knex, jwt).router());

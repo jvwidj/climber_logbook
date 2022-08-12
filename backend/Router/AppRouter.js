@@ -1,10 +1,11 @@
 require("dotenv").config({ path: "../.env" });
 
 class AppRouter {
-  constructor(express, knex, jwt) {
+  constructor(express, knex, jwt, fs) {
     this.express = express;
     this.knex = knex;
     this.jwt = jwt;
+    this.fs = fs;
   }
 
   /** ************** Routes - bind routes ***********************/
@@ -264,6 +265,8 @@ class AppRouter {
         session_id: req.params.id,
       })
       .then(async (data) => {
+        let images = this.fs.readdirSync(__dirname + "/uploaded/climb");
+        console.log("this imagess", images);
         const selectedClimb = [];
         for (let element of data) {
           let climb = await this.knex("location")

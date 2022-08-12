@@ -36,6 +36,8 @@ const ImageDialog = (props) => {
         "http://localhost:8000/media/upload/" + props.climb_id,
         uploadImage
       );
+      await axios.get("http://localhost:8000/media/images");
+      console.log("update image");
     } catch (error) {
       console.log("upload error", error);
     }
@@ -62,8 +64,8 @@ const ImageDialog = (props) => {
       >
         <Iconify
           icon="ant-design:video-camera-add-outlined"
-          width={30}
-          height={30}
+          width={20}
+          height={20}
         />
       </IconButton>
 

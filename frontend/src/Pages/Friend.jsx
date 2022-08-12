@@ -12,8 +12,10 @@ const Friend = () => {
   //console.log(userData[0].id);
 
   useEffect(() => {
-    dispatch(getFriendList(userData[0].id));
+    dispatch(getFriendList(userData.id));
   }, [dispatch]);
+
+  console.log(friendList);
 
   const findUser = async (event) => {
     event.preventDefault();

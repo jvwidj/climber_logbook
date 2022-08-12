@@ -125,6 +125,8 @@ class AuthRouter {
     const username = req.body.username;
     const email = req.body.email;
     const password = req.body.password;
+    const fname = req.body.fname;
+    const lname = req.body.lname;
 
     this.knex("users")
       .where({
@@ -139,6 +141,8 @@ class AuthRouter {
               username: username,
               email: email,
               password: password,
+              fname: fname,
+              lname: lname,
             })
             .then((data) => {
               res.json(data);

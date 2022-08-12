@@ -34,6 +34,24 @@ const SessionOverview = ({
   //Date Format
   const dateFormat = new Date(date).toDateString();
 
+  //Previous Session
+  async function previous() {
+    try {
+      console.log("previous");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  //Next Session
+  async function next() {
+    try {
+      console.log("next");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <Card
       sx={{
@@ -47,18 +65,6 @@ const SessionOverview = ({
       }}
       {...other}
     >
-      {/* <IconWrapperStyle
-        sx={{
-          color: (theme) => theme.palette[color].dark,
-          backgroundImage: (theme) =>
-            `linear-gradient(135deg, ${alpha(
-              theme.palette[color].dark,
-              0
-            )} 0%, ${alpha(theme.palette[color].dark, 0.24)} 100%)`,
-        }}
-      >
-        <Iconify icon={icon} width={24} height={24} />
-      </IconWrapperStyle> */}
       <Grid container spacing={2}></Grid>
       <Stack direction="row" justifyContent="center" alignItems="center">
         <Box>
@@ -66,7 +72,9 @@ const SessionOverview = ({
             size="xs"
             sx={{ color: "primary.dark", mx: 0 }}
             icon={"dashicons:arrow-left-alt2"}
-            onClick={() => {}}
+            onClick={() => {
+              previous();
+            }}
           />
         </Box>
         <Box sx={{ flexGrow: 2 }} />
@@ -90,7 +98,9 @@ const SessionOverview = ({
             size="xs"
             sx={{ color: "primary.dark", mx: 0 }}
             icon={"dashicons:arrow-right-alt2"}
-            onClick={() => {}}
+            onClick={() => {
+              next();
+            }}
           />
         </Box>
       </Stack>

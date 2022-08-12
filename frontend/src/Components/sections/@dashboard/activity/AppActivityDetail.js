@@ -22,6 +22,7 @@ import SessionDetail from "./SessionDetail";
 import Page from "../../../mui/Page";
 import SessionOverview from "./SessionOverview";
 import ActivityPostCard from "./ActivityPostCard";
+import MediaCard from "./MediaCard";
 
 // ----------------------------------------------------------------------
 
@@ -61,7 +62,17 @@ export default function AppActivityDetail({ sx, ...other }) {
             </Card>
           </Grid>
 
-          <ActivityPostCard post={selectedClimbList[0]} />
+          {/* {selectedClimbList.length > 0 ? (
+            <MediaCard post={selectedClimbList[0]} />
+          ) : null} */}
+
+          {/* {selectedClimbList.map((climb, index) => (
+            <MediaCard post={climb} />
+          ))} */}
+
+          {selectedClimbList.map((climb, index) =>
+            climb.media ? <MediaCard post={climb} /> : null
+          )}
         </Grid>
       </Container>
     </Page>

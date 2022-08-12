@@ -44,7 +44,7 @@ const Dashboard = () => {
   const { userData } = useSelector((store) => store.auth);
 
   useEffect(() => {
-    console.log(userData);
+    //console.log(userData);
   }, [userData]);
 
   //const fname = userData[0].fname;

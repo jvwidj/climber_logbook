@@ -7,13 +7,13 @@ import axios from "axios";
 const ClimbCard = ({ id, type, grade, description, route_name }) => {
   const [images, setImages] = useState("");
 
-  useEffect(() => {
+  /* useEffect(() => {
     console.log("use effect climbing card");
     axios.get("http://localhost:8000/media/image/" + { id }).then((res) => {
       console.log(res);
       setImages(res.data);
     });
-  });
+  }); */
 
   return (
     <div>
@@ -31,11 +31,11 @@ const ClimbCard = ({ id, type, grade, description, route_name }) => {
             </Stack>
           </Card.Text>
           {/* <Button variant="primary">Go somewhere</Button> */}
-          <img
+          {/*  <img
             src={"http://localhost:8000/media/image/" + { id }}
             style={{ width: "200px" }}
             alt=""
-          />
+          /> */}
         </Card.Body>
       </Card>
     </div>
