@@ -15,6 +15,8 @@ class AppRouter {
     router.get("/allsession", this.getAllSession.bind(this));
 
     router.get("/sessions", this.getUserSession.bind(this));
+    router.get("/session/user/:id", this.getFriendSessionByUser.bind(this));
+    //router.get("/session/user/:id", this.getSessionByUser.bind(this));
     router.get("/session/:id", this.getSession.bind(this));
     router.post("/sessions", this.postSession.bind(this));
     router.put("/session/:id", this.updateSession.bind(this));
@@ -52,32 +54,89 @@ class AppRouter {
       });
   }
 
+  //getFriendSessionByUser
+  getFriendSessionByUser(req, res) {
+    let user = this.decode(req);
+
+    return this.knex("friends")
+      .join("users", "users.id", "friends.user_b")
+      .where({
+        user_a: req.params.id,
+      })
+      .select("friends.id", "user_b", "status", "username")
+      .then(async (data) => {
+        //res.json(data);
+        const friendSession = [];
+        for (const user of data) {
+          let eachSession = await this.knex("session")
+            .join("location", "location.id", "session.location_id")
+            .where("user_id", user.user_b)
+            .select(
+              "session.id",
+              "user_id",
+              "location_id",
+              "location_name",
+              "location_description",
+              "is_outdoor",
+              "description",
+              "is_private",
+              "date"
+            );
+          console.log("each sesh", eachSession);
+          friendSession.push(...eachSession);
+          //res.json(data);
+        }
+        console.log("friend session ", friendSession);
+        res.json(friendSession);
+      });
+  }
+
   //get all sesssions by logged in user
   getUserSession(req, res) {
     let user = this.decode(req);
     console.log("Get all sessions by logged in user", user);
 
     return this.knex("session")
-      .select("*")
+      .join("location", "location.id", "session.location_id")
+      .where("user_id", user.id)
+      .select(
+        "session.id",
+        "user_id",
+        "location_id",
+        "location_name",
+        "location_description",
+        "is_outdoor",
+        "description",
+        "is_private",
+        "date"
+      )
       .then((data) => {
-        this.knex("session")
-          .join("location", "location.id", "session.location_id")
-          .where("user_id", user.id)
-          .select(
-            "session.id",
-            "user_id",
-            "location_id",
-            "location_name",
-            "location_description",
-            "is_outdoor",
-            "description",
-            "is_private",
-            "date"
-          )
-          .then((data) => {
-            console.log(data);
-            res.json(data);
-          });
+        console.log(data);
+        res.json(data);
+      });
+  }
+
+  //get session by user
+  getSessionByUser(req, res) {
+    console.log("get session by user");
+
+    return this.knex("session")
+      .join("location", "location.id", "session.location_id")
+      .where("user_id", req.params.id)
+      .select(
+        "session.id",
+        "user_id",
+        "location_id",
+        "location_name",
+        "location_description",
+        "is_outdoor",
+        "description",
+        "is_private",
+        "date"
+      )
+      .then((data) => {
+        //console.log(data);
+        res.json(data);
       });
   }
 

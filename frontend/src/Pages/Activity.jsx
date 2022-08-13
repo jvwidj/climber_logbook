@@ -30,7 +30,8 @@ import ActivityPostCard from "../Components/sections/@dashboard/activity/Activit
 import AppRecentActivity from "../Components/sections/@dashboard/app/AppRecentActivity";
 //
 import MOCK from "../_mock/session";
-
+import SocialSessionItem from "../Components/sections/Social/SocialSessionItem";
+import FriendSessionItem from "../Components/sections/Social/FriendSessionItem";
 // ----------------------------------------------------------------------
 const SORT_OPTIONS = [
   { value: "latest", label: "Latest" },
@@ -43,6 +44,7 @@ const SORT_OPTIONS = [
 const Activity = () => {
   const { userData } = useSelector((store) => store.auth);
   const { sessionList } = useSelector((store) => store.session);
+  const { userSessionList } = useSelector((store) => store.session);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -73,7 +75,7 @@ const Activity = () => {
   //Handle typed input value
   function handleChange(event, val) {
     setTabNum(val);
-    console.log(val);
+    //console.log(val);
   }
 
   return (
@@ -158,8 +160,8 @@ const Activity = () => {
               <CardHeader title={"Recent Activity"} subheader={""} />
               <Scrollbar>
                 <Stack spacing={2} sx={{ p: 2, pr: 0 }}>
-                  {sessionList.slice(0, 5).map((session) => (
-                    <SessionItem key={session.id} session={session} />
+                  {userSessionList.slice(0, 5).map((session) => (
+                    <FriendSessionItem key={session.id} session={session} />
                   ))}
                 </Stack>
               </Scrollbar>
@@ -178,6 +180,8 @@ const Activity = () => {
                 <Pagination count={5} />
               </Box>
             </Card>
+
+            <SocialSessionItem />
           </TabPanel>
 
           <TabPanel value="3" sx={{ px: 0 }}>

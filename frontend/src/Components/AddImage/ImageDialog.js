@@ -75,7 +75,7 @@ const ImageDialog = (props) => {
           <DialogContentText>Select file:</DialogContentText>
           <input
             type="file"
-            accept="image/*"
+            accept="image/*, video/*"
             onChange={(e) => {
               const data = new FormData();
               data.append("file", e.target.files[0]);

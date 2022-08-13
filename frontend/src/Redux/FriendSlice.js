@@ -56,6 +56,7 @@ export const friendSlice = createSlice({
     },
     [getFriendList.fulfilled]: (state, action) => {
       state.isLoading = false;
+      console.log("friend listtt", action.payload);
       state.friendList = action.payload;
     },
     [getFriendList.rejected]: (state) => {
