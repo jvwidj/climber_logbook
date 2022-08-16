@@ -15,6 +15,8 @@ class AuthRouter {
 
     //
     router.get("/all", this.getAllUser.bind(this));
+    //Get a friend
+    //router.get("/:id", this.getUser.bind(this));
     //Get user
     router.get("/users", this.getAuth.bind(this));
 
@@ -45,6 +47,14 @@ class AuthRouter {
         res.json(data);
       });
   }
+
+  /* getUser(req, res) {
+    return this.knex("users")
+      .where("id", req.params.id)
+      .then((data) => {
+        res.json(data);
+      });
+  } */
 
   //get auth user user
   getAuth(req, res) {

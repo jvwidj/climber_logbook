@@ -51,9 +51,10 @@ const Activity = () => {
   //console.log(sessionList)
 
   const onClickButton = async (event) => {
+    //console.log("onclick");
     event.preventDefault();
     try {
-      const user_id = userData[0].id;
+      const user_id = userData.id;
       dispatch(postSession(user_id)).then((data) => {
         //console.log(data.payload)
         dispatch(addSelectedSession(data.payload));
@@ -86,7 +87,7 @@ const Activity = () => {
             <TabList onChange={handleChange} centered>
               <Tab label="User" value="1" />
               <Tab label="Friends" value="2" />
-              <Tab label="Everyone" value="3" />
+              {/* <Tab label="Everyone" value="3" /> */}
             </TabList>
           </Box>
           <TabPanel value="1" sx={{ px: 0 }}>
@@ -113,7 +114,7 @@ const Activity = () => {
               <CardHeader title={"Recent Activity"} subheader={""} />
               <Scrollbar>
                 <Stack spacing={2} sx={{ p: 2, pr: 0 }}>
-                  {sessionList.slice(0, 5).map((session) => (
+                  {sessionList.map((session) => (
                     <SessionItem key={session.id} session={session} />
                   ))}
                 </Stack>
@@ -160,7 +161,7 @@ const Activity = () => {
               <CardHeader title={"Recent Activity"} subheader={""} />
               <Scrollbar>
                 <Stack spacing={2} sx={{ p: 2, pr: 0 }}>
-                  {userSessionList.slice(0, 5).map((session) => (
+                  {userSessionList.map((session) => (
                     <FriendSessionItem key={session.id} session={session} />
                   ))}
                 </Stack>
@@ -184,9 +185,9 @@ const Activity = () => {
             <SocialSessionItem />
           </TabPanel>
 
-          <TabPanel value="3" sx={{ px: 0 }}>
+          {/* <TabPanel value="3" sx={{ px: 0 }}>
             Everyone
-          </TabPanel>
+          </TabPanel> */}
         </TabContext>
 
         {/* <Grid container spacing={3}>

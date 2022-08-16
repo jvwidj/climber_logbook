@@ -13,7 +13,8 @@ export const signupThunk =
         password,
         fname,
         lname,
-      }
+      },
+      { headers: { "Access-Control-Allow-Origin": "*" } }
     );
     console.log("response", res);
   };
@@ -27,10 +28,10 @@ export const loginThunk =
       {
         username,
         password,
-      }
+      },
+      { headers: { "Access-Control-Allow-Origin": "*" } }
     );
     console.log("response", res);
-
     if (res.data) {
       localStorage.setItem("TOKEN", res.data.token);
       dispatch(login());

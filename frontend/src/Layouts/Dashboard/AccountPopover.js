@@ -42,6 +42,8 @@ const MENU_OPTIONS = [
 
 // ----------------------------------------------------------------------
 
+console.log(account);
+
 export default function AccountPopover() {
   const { userData } = useSelector((store) => store.auth);
   /* const fname = userData[0].fname;

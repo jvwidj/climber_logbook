@@ -9,13 +9,16 @@ const AddImageButton = () => {
   const [open, setOpen] = useState(null);
   const [uploadImage, setUploadImage] = useState("");
 
+  //URL
+  const api = `${process.env.REACT_APP_BACKEND}`;
+
   const onClickButton = async (event) => {
     event.preventDefault();
     setOpen(event.currentTarget);
     setOpen(null);
     console.log("add image");
     try {
-      await axios.post("http://localhost:8000/media/upload", uploadImage);
+      await axios.post(`${api}/upload`, uploadImage);
     } catch (error) {}
   };
 

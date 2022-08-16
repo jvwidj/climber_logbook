@@ -11,10 +11,12 @@ import axios from "axios";
 const Profile = () => {
   const [images, setImages] = useState([]);
   console.log(images);
+  //URL
+  const api = `${process.env.REACT_APP_BACKEND}`;
 
   useEffect(() => {
     console.log("use effect");
-    axios.get("http://localhost:8000/media/images").then((res) => {
+    axios.get(`${api}/media/images`).then((res) => {
       console.log(res);
       setImages(res.data);
     });
@@ -32,7 +34,7 @@ const Profile = () => {
           {/* <AddImageButton /> */}
         </Stack>
 
-        <Stack
+        {/* <Stack
           direction="column"
           justifyContent="center"
           alignItems="center"
@@ -47,7 +49,7 @@ const Profile = () => {
               />
             </Box>
           ))}
-        </Stack>
+        </Stack> */}
       </Container>
     </Page>
   );

@@ -2,8 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signupThunk } from "../Redux/authSlice";
+//@mui
+import {
+  Stack,
+  IconButton,
+  InputAdornment,
+  FilledInput,
+  Button,
+} from "@mui/material";
+import Iconify from "../Components/Iconify";
 
-const Signup = () => {
+const Signup = ({ sx, color = "grey", ...other }) => {
   const [credential, setCredential] = useState({
     username: "",
     email: "",
@@ -11,6 +20,8 @@ const Signup = () => {
     fname: "",
     lname: "",
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const auth = useSelector((store) => store.auth.isAuthenticated);
   const dispatch = useDispatch();
@@ -31,51 +42,106 @@ const Signup = () => {
   };
 
   return (
-    <div>
-      Signup
-      {/* username */}
-      <input
+    <Stack spacing={2}>
+      <h1>Sign Up</h1>
+      <FilledInput
+        sx={{
+          py: 0,
+          boxShadow: 0,
+          textAlign: "center",
+          display: "block",
+          color: (theme) => theme.palette[color].darker,
+          bgcolor: (theme) => theme.palette[color].lighter,
+          ...sx,
+        }}
+        {...other}
+        type="text"
+        name="fname"
+        placeholder="first name"
+        onChange={handleChange}
+      />
+
+      <FilledInput
+        sx={{
+          py: 0,
+          boxShadow: 0,
+          textAlign: "center",
+          display: "block",
+          color: (theme) => theme.palette[color].darker,
+          bgcolor: (theme) => theme.palette[color].lighter,
+          ...sx,
+        }}
+        {...other}
+        type="text"
+        name="lname"
+        placeholder="last name"
+        onChange={handleChange}
+      />
+
+      <FilledInput
+        sx={{
+          py: 0,
+          boxShadow: 0,
+          textAlign: "center",
+          display: "block",
+          color: (theme) => theme.palette[color].darker,
+          bgcolor: (theme) => theme.palette[color].lighter,
+          ...sx,
+        }}
+        {...other}
         type="text"
         name="username"
         placeholder="username"
         onChange={handleChange}
       />
-      {/* email */}
-      <input
+
+      <FilledInput
+        sx={{
+          py: 0,
+          boxShadow: 0,
+          textAlign: "center",
+          display: "block",
+          color: (theme) => theme.palette[color].darker,
+          bgcolor: (theme) => theme.palette[color].lighter,
+          ...sx,
+        }}
+        {...other}
         type="text"
         name="email"
         placeholder="email"
         onChange={handleChange}
       />
-      {/* password */}
-      <input
+
+      <FilledInput
         type="password"
         name="password"
         placeholder="password"
         onChange={handleChange}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton
+                onClick={() => setShowPassword(!showPassword)}
+                edge="end"
+              >
+                <Iconify
+                  icon={showPassword ? "eva:eye-fill" : "eva:eye-off-fill"}
+                />
+              </IconButton>
+            </InputAdornment>
+          ),
+        }}
       />
-      {/* fname */}
-      <input
-        type="text"
-        name="fname"
-        placeholder="First Name"
-        onChange={handleChange}
-      />
-      <input
-        type="text"
-        name="lname"
-        placeholder="Last Name"
-        onChange={handleChange}
-      />
-      <button
+
+      <Button
         type="submit"
-        onClick={() =>
-          dispatch(signupThunk(credential)).then(() => navigate("/login"))
-        }
+        onClick={() => {
+          dispatch(signupThunk(credential)).then(() => navigate("/login"));
+        }}
       >
-        Signup
-      </button>
-    </div>
+        Sign Up
+      </Button>
+    </Stack>
   );
 };
 

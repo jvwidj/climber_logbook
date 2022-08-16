@@ -12,12 +12,16 @@ const fileUpload = require("express-fileupload");
 
 // App Setup
 const app = express();
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 app.use(express.json()); //to access req.body
 app.use(fileUpload());
 
 //Knex Setup
-const knexFile = require("./knexFile").development;
+const knexFile = require("./knexfile").development;
 const knex = require("knex")(knexFile);
 
 //Auth setup

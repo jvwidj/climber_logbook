@@ -69,6 +69,9 @@ const MediaCard = ({ post }) => {
     { number: like, icon: "ant-design:heart-filled" },
   ];
 
+  //URL
+  const api = `${process.env.REACT_APP_BACKEND}`;
+
   return (
     <Grid item xs={12} sm={6} md={3}>
       <Card sx={{ position: "relative" }}>
@@ -88,8 +91,8 @@ const MediaCard = ({ post }) => {
           }}
         >
           <CoverImgStyle
-            alt={"http://localhost:8000/media/image/" + media}
-            src={"http://localhost:8000/media/image/" + media}
+            alt={`${api}/media/image/` + media}
+            src={`${api}/media/image/` + media}
           />
         </CardMediaStyle>
 

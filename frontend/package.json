@@ -2,6 +2,7 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://climberjournal.xyz",
   "dependencies": {
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
@@ -34,6 +35,7 @@
     "react-scripts": "5.0.1",
     "simplebar-react": "^2.4.1",
     "web-vitals": "^2.1.0",
+    "webpack": "^5.74.0",
     "yup": "^0.32.11"
   },
   "scripts": {

@@ -70,7 +70,7 @@ function FriendSessionItem(session) {
             dispatch(detailLink(session.session.id));
           }}
         >
-          {`${location_name}`}
+          {user_id} {`at ${location_name}`}
         </Link>
 
         <Typography variant="body2" sx={{ color: "text.secondary" }} noWrap>

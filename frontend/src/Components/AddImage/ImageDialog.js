@@ -15,6 +15,9 @@ import Iconify from "../Iconify";
 import axios from "axios";
 
 const ImageDialog = (props) => {
+  //URL
+  const api = `${process.env.REACT_APP_BACKEND}`;
+
   const [open, setOpen] = useState(false);
   const [uploadImage, setUploadImage] = useState("");
 
@@ -32,11 +35,8 @@ const ImageDialog = (props) => {
     setOpen(false);
     console.log("add image");
     try {
-      await axios.post(
-        "http://localhost:8000/media/upload/" + props.climb_id,
-        uploadImage
-      );
-      await axios.get("http://localhost:8000/media/images");
+      await axios.post(`${api}/media/upload/` + props.climb_id, uploadImage);
+      await axios.get(`${api}/media/images`);
       console.log("update image");
     } catch (error) {
       console.log("upload error", error);
